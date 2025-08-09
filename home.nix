@@ -87,6 +87,8 @@ programs.wofi = {
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+    ".config/wofi/config" = { source = ./wofi/config; };
+    ".config/wofi/style.css" = { source = ./wofi/style.css; };
   };
 
   # Home Manager can also manage your environment variables through

@@ -1,0 +1,23 @@
+/* ./dotfiles/wofi/style.css */
+#window {
+    background-color: #282a36;
+    border: 2px solid #44475a;
+    border-radius: 8px;
+}
+
+#input {
+    background-color: #44475a;
+    color: #f8f8f2;
+    border: none;
+    border-radius: 4px;
+    margin: 5px;
+    padding: 10px;
+}
+
+#entry:selected {
+    background-color: #6272a4;
+}
+
+#text {
+    color: #f8f8f2;
+}
