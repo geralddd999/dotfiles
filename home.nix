@@ -1,0 +1,1 @@
+/home/geronimo/.config/home-manager/home.nix
