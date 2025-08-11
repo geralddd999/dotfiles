@@ -1,8 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
+  
+
+  imports = [
+	./dunst.nix
+	];
   home.username = "geronimo";
   home.homeDirectory = "/home/geronimo";
 
@@ -14,7 +19,6 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
-
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs ;[
@@ -22,23 +26,25 @@
     # # "Hello, world!" when run.
     hello
     fastfetch
-    btop
+    btop nodejs python3
+    lshw gnumake ripgrep fd unzip 
+    #networking and others
+    bluez bluez-tools
+    # Gnome related stuff +File manager:
+    nautilus cheese
+    gnome-music easyeffects
+    gnome-photos gnome-characters
     # git related
-    gh
-    git
+    gh git
     #Hyprland plugins + other dependencies
-    swww
-    grim
-    wlogout
-    wofi
-    nwg-look
-    hyprpaper
-    brightnessctl
+    swww grim wlogout
+    wofi playerctl 
+    nwg-look hyprpaper brightnessctl
     #dev/nonfree
-    vscode
-    microsoft-edge
+    vscode microsoft-edge
     #Word-processing / school related
-    obsidian
+    obsidian onlyoffice-bin libreoffice-qt 
+    hunspell
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -52,6 +58,7 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
+
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -70,6 +77,24 @@ programs.git = {
      enable = true;
      userName = "Gerald Chambi";
      userEmail = "chambigerald@hotmail.com";
+};
+
+#Appearence config [GNOME]
+gtk = {
+     enable = true;
+
+     iconTheme = {
+	name = "Adwaita";
+	package = pkgs.adwaita-icon-theme;
+     };
+};
+
+#apply dark theme to gnome apps
+dconf.settings = {
+    "org/gnome/desktop/interface" = { 
+    	color-scheme = "prefer-dark";
+     	#to yet to configure the fractional scaling because i'm too lazy to actually check for it
+	};
 };
 
 programs.wofi = {

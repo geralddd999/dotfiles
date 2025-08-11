@@ -1,18 +1,18 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 20,
+  "height": 18,
   "spacing": 4,
 
   "modules-left": [
-    "hyprland/workspaces"
+    "clock"
   ],
   "modules-center": [
-    "clock"
+    "hyprland/workspaces"
   ],
   "modules-right": [
     "tray",
-    "network",
+    "cpu",
     "wireplumber",
     "backlight",
     "memory"
@@ -21,16 +21,16 @@
   "hyprland/workspaces": {
     "format": "{icon}",
     "format-icons": {
-        "1": "I",
-        "2": "II",
-        "3": "III",
-        "4": "IV",
-        "5": "V",
-        "6": "VI",
-        "7": "VII",
-        "8": "VIII",
-        "9": "IX",
-        "10": "X",
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
         "default": "○"
     },
     "persistent_workspaces": {
@@ -48,12 +48,12 @@
   },
 
   "clock": {
-    "format": "<span>  {:%H:%M}</span>",
+    "format": "{:%H:%M}",
     "tooltip-format": "<big>{:%Y-%m-%d}</big>\n<small>{:%A %B %d}</small>"
   },
 
   "wireplumber": {
-    "format": "<span>{icon} {volume}%</span>",
+    "format": "{icon} {volume}%",
     "format-bluetooth": "<span>{icon} {volume}%</span>",
     "format-muted": "<span> Muted</span>",
     "format-icons": {
@@ -66,13 +66,13 @@
   },
 
   "backlight": {
-    "format": "<span> {percent}%</span>",
+    "format": "{percent}%",
     "on-scroll-up": "brightnessctl set 1%+",
     "on-scroll-down": "brightnessctl set 1%-"
   },
 
   "memory": {
-    "format": "<span> {percentage}%</span>"
+    "format": "<span>{percentage}%</span>"
   },
 
   "network": {
