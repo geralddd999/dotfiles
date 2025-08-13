@@ -72,7 +72,7 @@
   },
 
   "memory": {
-    "format": "<span>{percentage}%</span>"
+    "format": "{percentage}%"
   },
 
   "network": {

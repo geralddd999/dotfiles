@@ -34,7 +34,8 @@ sort_order=default
 gtk_dark=true
 filter_rate=100
 prompt= >
-
+insensitive=true
+term = kitty
 ## Keys
 key_expand=Tab
 key_exit=Escape

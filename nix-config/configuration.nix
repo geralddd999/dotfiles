@@ -70,10 +70,14 @@ environment.sessionVariables = {
 };
 
 #Configuring the xdg-portal for hyprland
+services.dbus.enable = true;
 
 xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    wlr.enable = true;
+    #extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    #extraPortals = [pkgs.xdg-desktop-portal-wlr];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
 };
 
   # Configure keymap in X11
@@ -100,7 +104,7 @@ xdg.portal = {
   # Define a user account. Don't forget to set a password with ‘passwd’.
  users.users.geronimo = {
    isNormalUser = true;
-   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+   extraGroups = [ "wheel" "video" "input"]; # Enable ‘sudo’ for the user.
    packages = with pkgs; [
      tree
    ];
@@ -117,14 +121,16 @@ programs.firefox.enable = true;
    # DE dependencies
    kitty
    foot
-   hyprland
+   hyprland uwsm
    swww
-   dunst
+   dunst meson
+   wayland-protocols wayland-utils
+   wl-clipboard wlroots
    xdg-desktop-portal-gtk
    xdg-desktop-portal-hyprland
    xdg-user-dirs
    xwayland
-   hyprlock
+   hyprlock libnotify
    hypridle hyprcursor
    hyprpolkitagent 
 

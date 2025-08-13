@@ -24,10 +24,11 @@
   home.packages = with pkgs ;[
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
-    hello
-    fastfetch
+    matugen glib powertop 
+    fastfetch libgtop gsettings-desktop-schemas
     btop nodejs python3
     lshw gnumake ripgrep fd unzip 
+    libsoup upower dart-sass
     #networking and others
     bluez bluez-tools
     # Gnome related stuff +File manager:
@@ -38,13 +39,15 @@
     gh git
     #Hyprland plugins + other dependencies
     swww grim wlogout
-    wofi playerctl 
+    wofi playerctl hyprpanel
     nwg-look hyprpaper brightnessctl
     #dev/nonfree
     vscode microsoft-edge
     #Word-processing / school related
     obsidian onlyoffice-bin libreoffice-qt 
     hunspell
+    #fonts
+    meslo-lgs-nf liberation_ttf
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -62,7 +65,9 @@
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
-  programs.waybar = {
+fonts.fontconfig.enable = true;
+
+programs.waybar = {
      enable = true;
      #style = ./waybar/style.css;
      settings = {
@@ -135,7 +140,9 @@ programs.wofi = {
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
-
+  home.sessionPath = [
+  "/run/current-system/sw/bin/hyprland"
+  ];
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

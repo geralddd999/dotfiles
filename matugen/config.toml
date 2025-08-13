@@ -1,0 +1,22 @@
+[config]
+# ...
+
+[templates.hyprland]
+input_path = '~/.dotfiles/matugen/templates/hyprland-colors.conf'
+output_path = '~/.dotfiles/hyprland/colors.conf'
+post_hook = 'hyprctl reload'
+
+[templates.kitty]
+input_path = '~/.dotfiles/matugen/templates/kitty-colors.conf'
+output_path = '~/.dotfiles/kitty/colors.conf'
+post_hook = 'pkill -SIGUSR1 kitty'
+
+[templates.gtk3]
+input_path = '~/.dotfiles/matugen/templates/gtk-colors.css'
+output_path = '~/.dotfiles/gtk/gtk-3.0/colors.css'
+post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme ""; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}'
+
+[templates.gtk4]
+input_path = '~/.dotfiles/matugen/templates/gtk-colors.css'
+output_path = '~/.dotfiles/gtk/gtk-4.0/colors.css'
+
