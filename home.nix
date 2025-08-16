@@ -72,6 +72,7 @@
     qt5.qtimageformats
     qt5.qtsvg
     qt5.qttranslations
+    kdePackages.qt5compat
     #qt6 
     (hiPrio qt6Packages.qtdeclarative)
     (hiPrio qt6Packages.qttranslations)
@@ -131,7 +132,7 @@
   # plain files is through 'home.file'.
   fonts.fontconfig.enable = true;
 
-
+  #programs.quickshell.enable = true;
 
   programs.waybar = {
     enable = true;

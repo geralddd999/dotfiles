@@ -1,15 +1,17 @@
+import "./modules/bar/"
+
 import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
+import QuickShell
+
 
 ShellRoot{
 	id: root
 
 	//Init components
 	Component.onCompleted: {
-	  MaterialThemeLoader.reapplyTheme()
+	  //MaterialThemeLoader.reapplyTheme()
 	  ConfigLoader.loadConfig()
-	  PersistentStateManager.loadStates()
+	  //PersistentStateManager.loadStates()
   	}
 
 	ColumnLayout {

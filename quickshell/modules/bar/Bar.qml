@@ -1,7 +1,12 @@
 // modules/bar/Bar.qml
+
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QuickShell
+import QuickShell.Io 
+import QuickShell.Wayland
 
 PanelWindow {
     id: barRoot
@@ -26,16 +31,5 @@ PanelWindow {
             }
         }
         
-        // Right section
-        Item {
-            Layout.fillWidth: true
-            Layout.preferredHeight: parent.height
-            
-            // Weather widget
-            WeatherWidget {
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
-            }
-        }
     }
 }
