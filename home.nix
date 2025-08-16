@@ -3,14 +3,13 @@
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  
+
 
   imports = [
-	./dunst.nix
-	];
+    ./dunst.nix
+  ];
   home.username = "geronimo";
   home.homeDirectory = "/home/geronimo";
-
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -24,30 +23,59 @@
   home.packages = with pkgs ;[
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
-    matugen glib powertop 
-    fastfetch libgtop gsettings-desktop-schemas
-    btop nodejs python3
-    lshw gnumake ripgrep fd unzip 
-    libsoup upower dart-sass
+    matugen
+    glib
+    powertop
+    fastfetch
+    libgtop
+    gsettings-desktop-schemas
+    fish
+    btop
+    nodejs
+    python3
+    cargo
+    lshw
+    gnumake
+    ripgrep
+    fd
+    unzip
+    libsoup
+    upower
+    dart-sass
     #networking and others
-    bluez bluez-tools
+    bluez
+    bluez-tools
     # Gnome related stuff +File manager:
-    nautilus cheese
-    gnome-music easyeffects
-    gnome-photos gnome-characters
+    nautilus
+    cheese
+    gnome-music
+    easyeffects
+    gnome-photos
+    gnome-characters
     # git related
-    gh git
+    gh
+    git
     #Hyprland plugins + other dependencies
-    swww grim wlogout
-    wofi playerctl hyprpanel
-    nwg-look hyprpaper brightnessctl
+    swww
+    grim
+    wlogout
+    wofi
+    playerctl
+    hyprpanel
+    nwg-look
+    hyprpaper
+    brightnessctl
     #dev/nonfree
-    vscode microsoft-edge
+    vscode
+    microsoft-edge
     #Word-processing / school related
-    obsidian onlyoffice-bin libreoffice-qt 
+    obsidian
+    onlyoffice-bin
+    libreoffice-qt
     hunspell
     #fonts
-    meslo-lgs-nf liberation_ttf
+    meslo-lgs-nf
+    liberation_ttf
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -65,48 +93,57 @@
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
-fonts.fontconfig.enable = true;
+  fonts.fontconfig.enable = true;
 
-programs.waybar = {
-     enable = true;
-     #style = ./waybar/style.css;
-     settings = {
-	  main = builtins.fromJSON (builtins.readFile ~/.dotfiles/waybar/config);
-	};
-     style = builtins.readFile ~/.dotfiles/waybar/style.css;
-   
-};
 
-#Git config
-programs.git = {
-     enable = true;
-     userName = "Gerald Chambi";
-     userEmail = "chambigerald@hotmail.com";
-};
 
-#Appearence config [GNOME]
-gtk = {
-     enable = true;
-
-     iconTheme = {
-	name = "Adwaita";
-	package = pkgs.adwaita-icon-theme;
-     };
-};
-
-#apply dark theme to gnome apps
-dconf.settings = {
-    "org/gnome/desktop/interface" = { 
-    	color-scheme = "prefer-dark";
-     	#to yet to configure the fractional scaling because i'm too lazy to actually check for it
-	};
-};
-
-programs.wofi = {
+  programs.waybar = {
     enable = true;
-};
+    #style = ./waybar/style.css;
+    settings = {
+      main = builtins.fromJSON (builtins.readFile ~/.dotfiles/waybar/config);
+    };
+    style = builtins.readFile ~/.dotfiles/waybar/style.css;
 
-   home.file = {
+  };
+
+  #Git config
+  programs.git = {
+    enable = true;
+    userName = "Gerald Chambi";
+    userEmail = "chambigerald@hotmail.com";
+  };
+
+  programs.fish = { enable = true; };
+  #Appearence config [GNOME]
+  gtk = {
+    enable = true;
+
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
+    theme = {
+      name = "adw-gtk3";
+      package = pkgs.adw-gtk3;
+    };
+    gtk3.extraCss = builtins.readFile ~/.dotfiles/gtk/gtk-3.0/gtk.css;
+    gtk4.extraCss = builtins.readFile ~/.dotfiles/gtk/gtk-4.0/gtk.css;
+  };
+
+  #apply dark theme to gnome apps
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      #to yet to configure the fractional scaling because i'm too lazy to actually check for it
+    };
+  };
+
+  programs.wofi = {
+    enable = true;
+  };
+
+  home.file = {
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -117,8 +154,12 @@ programs.wofi = {
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".config/wofi/config" = { source = ./wofi/config; };
-    ".config/wofi/style.css" = { source = ./wofi/style.css; };
+    ".config/wofi/config" = { source = ~/.dotfiles/wofi/config; };
+    ".config/wofi/style.css" = { source = ~/.dotfiles/wofi/style.css; };
+    ".config/wofi/colors.css" = { source = ~/.dotfiles/wofi/colors.css; };
+
+    ".config/gtk-4.0/colors.css" = { source = ~/.dotfiles/gtk/gtk-4.0/colors.css; };
+    ".config/gtk-3.0/colors.css" = { source = ~/.dotfiles/gtk/gtk-3.0/colors.css; };
   };
 
   # Home Manager can also manage your environment variables through
@@ -141,7 +182,7 @@ programs.wofi = {
     # EDITOR = "emacs";
   };
   home.sessionPath = [
-  "/run/current-system/sw/bin/hyprland"
+    "/run/current-system/sw/bin/hyprland"
   ];
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

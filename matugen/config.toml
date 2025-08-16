@@ -20,3 +20,6 @@ post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme ""; gsettings s
 input_path = '~/.dotfiles/matugen/templates/gtk-colors.css'
 output_path = '~/.dotfiles/gtk/gtk-4.0/colors.css'
 
+[templates.wofi]
+input_path = '~/.dotfiles/matugen/templates/colors.css'
+output_path = '~/.dotfiles/wofi/colors.css'

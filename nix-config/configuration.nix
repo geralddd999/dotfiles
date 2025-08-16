@@ -47,11 +47,13 @@ nixpkgs.config.allowUnfree = true;
 #Configuring Hardware-Acceleration
 hardware.graphics = {
     enable = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [
 	intel-media-driver
 	#with pkgs.pkgsi686Linux; intel-vaapi-driver #32-bit support intel driver
 	intel-vaapi-driver
 	libvdpau-va-gl
+	mesa libva-utils vulkan-tools
 
     ];
 };
@@ -98,20 +100,26 @@ xdg.portal = {
    wireplumber.enable = true;
  };
 
+  hardware.bluetooth.enable = true;
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
  users.users.geronimo = {
    isNormalUser = true;
-   extraGroups = [ "wheel" "video" "input"]; # Enable ‘sudo’ for the user.
+   extraGroups = [ "wheel" "video" "input" "networkmanager" "wayland"]; # Enable ‘sudo’ for the user.
    packages = with pkgs; [
      tree
    ];
+   shell = pkgs.fish;
  };
 
-programs.firefox.enable = true;
 
+#Enable power management
+powerManagement.enable = true;
+
+programs.firefox.enable = true;
+programs.fish.enable = true;
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
  environment.systemPackages = with pkgs; [
@@ -130,7 +138,7 @@ programs.firefox.enable = true;
    xdg-desktop-portal-hyprland
    xdg-user-dirs
    xwayland
-   hyprlock libnotify
+   hyprlock libnotify hyprpicker
    hypridle hyprcursor
    hyprpolkitagent 
 
