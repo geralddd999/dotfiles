@@ -39,7 +39,7 @@
     ripgrep
     fd
     unzip
-    libsoup
+    libsoup_3
     upower
     dart-sass
     #networking and others
@@ -55,6 +55,42 @@
     # git related
     gh
     git
+    #Wayland related pkgs:
+    grim
+    slurp
+    wl-clipboard
+    wtype
+    pamixer
+    mako
+    #syntax highlighting
+    kdePackages.syntax-highlighting
+
+    #qt5
+    qt5.qtbase
+    qt5.qtdeclarative
+    qt5.qtgraphicaleffects
+    qt5.qtimageformats
+    qt5.qtsvg
+    qt5.qttranslations
+    #qt6 
+    (hiPrio qt6Packages.qtdeclarative)
+    (hiPrio qt6Packages.qttranslations)
+    qt6Packages.qtbase
+    qt6Packages.qtdeclarative
+    qt6Packages.qtwayland
+    qt6Packages.qtsvg
+    qt6Packages.qtimageformats
+    qt6Packages.qtmultimedia
+    qt6Packages.qtpositioning
+    qt6Packages.qtquicktimeline
+    qt6Packages.qtsensors
+    qt6Packages.qttools
+    qt6Packages.qttranslations
+    qt6Packages.qtvirtualkeyboard
+    qt6Packages.qt5compat
+    #Other
+    hyprshell
+    grimblast
     #Hyprland plugins + other dependencies
     swww
     grim
@@ -101,12 +137,16 @@
     enable = true;
     #style = ./waybar/style.css;
     settings = {
-      main = builtins.fromJSON (builtins.readFile ~/.dotfiles/waybar/config);
+      main = builtins.fromJSON (builtins.readFile ./waybar/config);
     };
-    style = builtins.readFile ~/.dotfiles/waybar/style.css;
+    style = builtins.readFile ./waybar/style.css;
 
   };
-
+  xdg.configFile."quickshell" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/.dotfiles/quickshell";
+    recursive = true;
+  };
   #Git config
   programs.git = {
     enable = true;
@@ -127,8 +167,8 @@
       name = "adw-gtk3";
       package = pkgs.adw-gtk3;
     };
-    gtk3.extraCss = builtins.readFile ~/.dotfiles/gtk/gtk-3.0/gtk.css;
-    gtk4.extraCss = builtins.readFile ~/.dotfiles/gtk/gtk-4.0/gtk.css;
+    gtk3.extraCss = builtins.readFile ./gtk/gtk-3.0/gtk.css;
+    gtk4.extraCss = builtins.readFile ./gtk/gtk-4.0/gtk.css;
   };
 
   #apply dark theme to gnome apps
@@ -154,12 +194,12 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".config/wofi/config" = { source = ~/.dotfiles/wofi/config; };
-    ".config/wofi/style.css" = { source = ~/.dotfiles/wofi/style.css; };
-    ".config/wofi/colors.css" = { source = ~/.dotfiles/wofi/colors.css; };
+    ".config/wofi/config" = { source = ./wofi/config; };
+    ".config/wofi/style.css" = { source = ./wofi/style.css; };
+    ".config/wofi/colors.css" = { source = ./wofi/colors.css; };
 
-    ".config/gtk-4.0/colors.css" = { source = ~/.dotfiles/gtk/gtk-4.0/colors.css; };
-    ".config/gtk-3.0/colors.css" = { source = ~/.dotfiles/gtk/gtk-3.0/colors.css; };
+    ".config/gtk-4.0/colors.css" = { source = ./gtk/gtk-4.0/colors.css; };
+    ".config/gtk-3.0/colors.css" = { source = ./gtk/gtk-3.0/colors.css; };
   };
 
   # Home Manager can also manage your environment variables through
