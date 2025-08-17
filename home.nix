@@ -222,7 +222,8 @@
   #  /etc/profiles/per-user/geronimo/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-
+    QML_IMPORT_PATH = "${pkgs.quickshell}/lib/qt-6/qml";
+    QML2_IMPORT_PATH = "${pkgs.quickshell}/lib/qt-6/qml";
     # EDITOR = "emacs";
   };
   home.sessionPath = [
