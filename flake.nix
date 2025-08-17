@@ -40,7 +40,7 @@
           ./home.nix
           {
             home.packages = [
-              quickshell.packages.${system}.default
+              #quickshell.packages.${system}.default
               zen.packages.${system}.default
 
             ];

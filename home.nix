@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -132,7 +132,9 @@
   # plain files is through 'home.file'.
   fonts.fontconfig.enable = true;
 
-  #programs.quickshell.enable = true;
+  programs.quickshell = {
+    enable = true;
+  };
 
   programs.waybar = {
     enable = true;
@@ -220,6 +222,7 @@
   #  /etc/profiles/per-user/geronimo/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
+
     # EDITOR = "emacs";
   };
   home.sessionPath = [
