@@ -1,7 +1,9 @@
 import "./modules/bar/"
 
+import Quickshell
 import QtQuick
-import QuickShell
+import QtQuick.Controls
+import QtQuick.Layouts
 
 
 ShellRoot{
@@ -15,11 +17,9 @@ ShellRoot{
   	}
 
 	ColumnLayout {
-	  anchors.fill: parent
-
-	  Bar {
-		Layout.fillWidth : true
-		Layout.preferredHeight : barHeight
+	  Loader{
+		active: true
+		sourceComponent: Bar{}
 	  }
 
 	}

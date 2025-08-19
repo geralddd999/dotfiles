@@ -2,14 +2,14 @@
 @import "colors.css";
 
 #window {
-    background-color: var(--surface);
-    border: 2px solid var(--primary);
+    background-color: @surface;
+    border: 2px solid @primary;
     border-radius: 14px;
 }
 
 #input {
-    background-color: var(--surface-container-highest);
-    color: var(--on-surface);
+    background-color: @surface-container-highest;
+    color: @on-surface;
     border: none;
     border-radius: 4px;
     margin: 5px;
@@ -31,12 +31,12 @@
 #entry {
     padding: 10px;
     border-radius: 8px;
-    color: var(--on-surface-variant);
+    color: @on-surface-variant;
 }
 
 #entry:selected {
-    background-color: var(--primary-container);
-    color: var(--on-primary-container);
+    background-color: @primary-container;
+    color: @on-primary-container;
 }
 
 #text {
