@@ -206,6 +206,8 @@
 
     ".config/gtk-4.0/colors.css" = { source = ./gtk/gtk-4.0/colors.css; };
     ".config/gtk-3.0/colors.css" = { source = ./gtk/gtk-3.0/colors.css; };
+
+    ".config/gtk4.0/settings.ini" = { source = ./gtk/gtk-4.0/settings.ini; };
   };
 
   # Home Manager can also manage your environment variables through

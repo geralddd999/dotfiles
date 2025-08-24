@@ -8,8 +8,8 @@ layer=top
 term=kitty
 
 ## Geometry
-width=600px
-height=400px
+width=500px
+height=200px
 location=0
 orientation=vertical
 halign=fill

@@ -137,7 +137,7 @@ programs.fish.enable = true;
    xdg-desktop-portal-gtk
    xdg-desktop-portal-hyprland
    xdg-user-dirs
-   xwayland
+   xwayland hyprsunset
    hyprlock libnotify hyprpicker
    hypridle hyprcursor
    hyprpolkitagent 
