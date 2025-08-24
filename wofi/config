@@ -33,7 +33,7 @@ no_actions=true
 sort_order=default
 gtk_dark=true
 filter_rate=100
-prompt= >
+prompt= Search it unc
 insensitive=true
 term = kitty
 ## Keys

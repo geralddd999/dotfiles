@@ -26,6 +26,7 @@
     #quickshell
     matugen
     glib
+    gnome-text-editor
     powertop
     fastfetch
     libgtop
@@ -173,6 +174,16 @@
       name = "adw-gtk3";
       package = pkgs.adw-gtk3;
     };
+
+    settings = {
+      gtk-theme-name= "adw-gtk3-dark";
+      gtk-icon-theme-name= "Adwaita";
+      gtk-font-name= "SF Pro 11"
+      gtk-cursor-theme-name= "Adwaita"
+      gtk-cursor-theme-size= 24
+      gtk-application-prefer-dark-theme= 1
+      
+    };
     gtk3.extraCss = builtins.readFile ./gtk/gtk-3.0/gtk.css;
     gtk4.extraCss = builtins.readFile ./gtk/gtk-4.0/gtk.css;
   };
@@ -206,8 +217,6 @@
 
     ".config/gtk-4.0/colors.css" = { source = ./gtk/gtk-4.0/colors.css; };
     ".config/gtk-3.0/colors.css" = { source = ./gtk/gtk-3.0/colors.css; };
-
-    ".config/gtk4.0/settings.ini" = { source = ./gtk/gtk-4.0/settings.ini; };
   };
 
   # Home Manager can also manage your environment variables through
