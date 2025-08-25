@@ -175,15 +175,26 @@
       package = pkgs.adw-gtk3;
     };
 
-    settings = {
+    gtk4.extraConfig = {
       gtk-theme-name= "adw-gtk3-dark";
       gtk-icon-theme-name= "Adwaita";
-      gtk-font-name= "SF Pro 11"
-      gtk-cursor-theme-name= "Adwaita"
-      gtk-cursor-theme-size= 24
-      gtk-application-prefer-dark-theme= 1
+      gtk-font-name= "SF Pro 11";
+      gtk-cursor-theme-name= "Adwaita";
+      gtk-cursor-theme-size= 24;
+      gtk-application-prefer-dark-theme= 1;
       
     };
+
+    gtk3.extraConfig = {
+      gtk-theme-name= "adw-gtk3-dark";
+      gtk-icon-theme-name= "Adwaita";
+      gtk-font-name= "SF Pro 11";
+      gtk-cursor-theme-name= "Adwaita";
+      gtk-cursor-theme-size= 24;
+      gtk-application-prefer-dark-theme= 1;
+      
+    };
+
     gtk3.extraCss = builtins.readFile ./gtk/gtk-3.0/gtk.css;
     gtk4.extraCss = builtins.readFile ./gtk/gtk-4.0/gtk.css;
   };
@@ -214,7 +225,7 @@
     ".config/wofi/config" = { source = ./wofi/config; };
     ".config/wofi/style.css" = { source = ./wofi/style.css; };
     ".config/wofi/colors.css" = { source = ./wofi/colors.css; };
-
+    #Gtk related stuff
     ".config/gtk-4.0/colors.css" = { source = ./gtk/gtk-4.0/colors.css; };
     ".config/gtk-3.0/colors.css" = { source = ./gtk/gtk-3.0/colors.css; };
   };
