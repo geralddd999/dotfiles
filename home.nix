@@ -7,6 +7,7 @@
 
   imports = [
     ./dunst.nix
+    ./cursor.nix
   ];
   home.username = "geronimo";
   home.homeDirectory = "/home/geronimo";
