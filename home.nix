@@ -10,6 +10,7 @@
   ];
   home.username = "geronimo";
   home.homeDirectory = "/home/geronimo";
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -176,23 +177,23 @@
     };
 
     gtk4.extraConfig = {
-      gtk-theme-name= "adw-gtk3-dark";
-      gtk-icon-theme-name= "Adwaita";
-      gtk-font-name= "SF Pro 11";
-      gtk-cursor-theme-name= "Adwaita";
-      gtk-cursor-theme-size= 24;
-      gtk-application-prefer-dark-theme= 1;
-      
+      gtk-theme-name = "adw-gtk3-dark";
+      gtk-icon-theme-name = "Adwaita";
+      gtk-font-name = "SF Pro 11";
+      gtk-cursor-theme-name = "Adwaita";
+      gtk-cursor-theme-size = 24;
+      gtk-application-prefer-dark-theme = 1;
+
     };
 
     gtk3.extraConfig = {
-      gtk-theme-name= "adw-gtk3-dark";
-      gtk-icon-theme-name= "Adwaita";
-      gtk-font-name= "SF Pro 11";
-      gtk-cursor-theme-name= "Adwaita";
-      gtk-cursor-theme-size= 24;
-      gtk-application-prefer-dark-theme= 1;
-      
+      gtk-theme-name = "adw-gtk3-dark";
+      gtk-icon-theme-name = "Adwaita";
+      gtk-font-name = "SF Pro 11";
+      gtk-cursor-theme-name = "Adwaita";
+      gtk-cursor-theme-size = 24;
+      gtk-application-prefer-dark-theme = 1;
+
     };
 
     gtk3.extraCss = builtins.readFile ./gtk/gtk-3.0/gtk.css;

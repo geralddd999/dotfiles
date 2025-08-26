@@ -30,7 +30,7 @@
    };
 
    specialisation = {
-	on-the-go.configuration = {
+	gpu-heavy.configuration = {
 	    system.nixos.tags =["GPU-heavy"];
 
 	    hardware.nvidia = {
