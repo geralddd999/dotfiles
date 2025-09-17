@@ -97,6 +97,10 @@ hardware.graphics = {
     extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
 };
 
+hardware.opengl.extraPackages32 = with pkgs; [
+    driversi686Linux.amdvlk
+  ];
+
 environment.variables = {
     # VAAPI and VDPAU config for accelerated video.
     # See https://wiki.archlinux.org/index.php/Hardware_video_acceleration
