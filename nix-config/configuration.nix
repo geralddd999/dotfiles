@@ -91,15 +91,8 @@ hardware.graphics = {
       rocmPackages.clr
       rocmPackages.clr.icd
 
-      # AMDVLK drivers can be used in addition to the Mesa RADV drivers.
-      amdvlk
     ];
-    extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
 };
-
-hardware.opengl.extraPackages32 = with pkgs; [
-    driversi686Linux.amdvlk
-  ];
 
 environment.variables = {
     # VAAPI and VDPAU config for accelerated video.
