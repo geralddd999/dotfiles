@@ -9,12 +9,12 @@ term=kitty
 
 ## Geometry
 width=500px
-height=200px
+height=150px
 location=0
 orientation=vertical
 halign=fill
 line_wrap=off
-dynamic_lines=false
+dynamic_lines=true
 
 ## Images
 allow_markup=true

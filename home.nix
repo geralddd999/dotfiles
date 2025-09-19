@@ -1,12 +1,12 @@
-{ config, pkgs, lib, inputs, apple-fonts, ... }:
-
+{ config, pkgs, lib, inputs, ... }:
+#removed apple-fonts
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
 
 
   imports = [
-    ./dunst.nix
+    #./dunst.nix
     ./cursor.nix
   ];
   home.username = "geronimo";
@@ -109,6 +109,7 @@
     #dev/nonfree
     vscode
     microsoft-edge
+    zed-editor
     #Word-processing / school related
     obsidian
     onlyoffice-bin
@@ -117,7 +118,7 @@
     #fonts
     meslo-lgs-nf
     liberation_ttf
-    apple-fonts.packages.${pkgs.system}.sf-pro
+    #apple-fonts.packages.${pkgs.system}.sf-pro
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -135,13 +136,13 @@
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
-  fonts.fontconfig.enable = true;
-  stylix.fonts = {
-    serif = {
-      package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
-      name = "SFProDisplay Nerd Font";
-    };
-  };
+ # fonts.fontconfig.enable = true;
+ # stylix.fonts = {
+ #   serif = {
+ #     package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
+ #     name = "SFProDisplay Nerd Font";
+ #   };
+ # };
   programs.waybar = {
     enable = true;
     #style = ./waybar/style.css;
@@ -151,6 +152,7 @@
     style = builtins.readFile ./waybar/style.css;
 
   };
+
   xdg.configFile."quickshell" = {
     source = config.lib.file.mkOutOfStoreSymlink
       "${config.home.homeDirectory}/.dotfiles/quickshell";
@@ -162,6 +164,13 @@
     userName = "Gerald Chambi";
     userEmail = "chambigerald@hotmail.com";
   };
+
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper = {
+            enable = true; 
+        };
+    };
 
   programs.fish = { enable = true; };
   #Appearence config [GNOME]
@@ -213,6 +222,10 @@
     enable = true;
   };
 
+  programs.neovim = {
+    enable = true;
+  };
+
   home.file = {
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
@@ -230,6 +243,18 @@
     #Gtk related stuff
     ".config/gtk-4.0/colors.css" = { source = ./gtk/gtk-4.0/colors.css; };
     ".config/gtk-3.0/colors.css" = { source = ./gtk/gtk-3.0/colors.css; };
+
+    #kitty config
+    ".config/kitty/kitty.conf" = {source = ./kitty/kitty.conf; };
+    ".config/kitty/colors.conf" = {source = ./kitty/colors.conf; };
+
+    #matugen
+    ".config/matugen/config.toml" ={source = ./matugen/config.toml; };
+    #hyprlock
+    ".config/hypr/hyprlock.conf" = {source = ./hyprland/hyprlock.conf; };
+  };
+  xdg.configFile."nvim" = {
+    source = ./nvim;
   };
 
   # Home Manager can also manage your environment variables through

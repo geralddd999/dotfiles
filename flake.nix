@@ -21,17 +21,17 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    apple-fonts = {
-      url = "github:Lyndeno/apple-fonts.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #apple-fonts = {
+    #  url = "github:Lyndeno/apple-fonts.nix";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, quickshell, zen, apple-fonts, stylix, ... }:
+  outputs = { self, nixpkgs, home-manager, quickshell, zen, stylix, ... }: #removed apple-fonts
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -48,7 +48,7 @@
           ./home.nix
           stylix.homeModules.stylix
           {
-            _module.args = { inherit apple-fonts; };
+            #_module.args = { inherit apple-fonts; };
 
             home.packages = [
               quickshell.packages.${system}.default

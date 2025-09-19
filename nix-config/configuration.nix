@@ -20,11 +20,7 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-  # Machine specific packages
-  environment.systemPackages = with pkgs; [
-    radeontop # Like htop, but for AMD GPUs
-    nvtopPackages.amd # nvtop for AMD GPUs
-  ];
+
 
   # Load amdgpu at stage 1
   boot.initrd.kernelModules = [ "amdgpu" ];
@@ -154,7 +150,7 @@ xdg.portal = {
  users.users.geronimo = {
    isNormalUser = true;
    extraGroups = [ "wheel" "video" "input" "networkmanager" "wayland"]; # Enable ‘sudo’ for the user.
-   packages = with pkgs; [
+  packages = with pkgs; [
      tree
    ];
    shell = pkgs.fish;
@@ -170,8 +166,8 @@ programs.fish.enable = true;
   # You can use https://search.nixos.org/ to find more packages (and options).
  environment.systemPackages = with pkgs; [
    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-   wget gcc
-   neovim
+   wget gcc git
+   neovim radeontop
    # DE dependencies
    kitty
    foot

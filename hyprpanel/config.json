@@ -1,7 +1,5 @@
 {
-  "bar.customModules.storage.paths": [
-    "/"
-  ],
+  "bar.customModules.storage.paths": ["/"],
   "theme.font.weight": 400,
   "theme.matugen": true,
   "wallpaper.image": "/home/geronimo/Wallpapers/wallpaper1.jpg",
@@ -12,15 +10,8 @@
   "theme.font.label": "SF Pro Display Ultra-Bold",
   "bar.layouts": {
     "0": {
-      "left": [
-        "dashboard",
-        "workspaces",
-        "windowtitle"
-      ],
-      "middle": [
-        "media",
-        "workspaces"
-      ],
+      "left": ["dashboard", "workspaces", "windowtitle"],
+      "middle": ["media", "workspaces"],
       "right": [
         "systray",
         "volume",
@@ -31,34 +22,14 @@
       ]
     },
     "1": {
-      "left": [
-        "dashboard",
-        "workspaces",
-        "windowtitle"
-      ],
-      "middle": [
-        "media"
-      ],
-      "right": [
-        "volume",
-        "clock",
-        "notifications"
-      ]
+      "left": ["dashboard", "workspaces", "windowtitle"],
+      "middle": ["media"],
+      "right": ["volume", "clock", "notifications"]
     },
     "2": {
-      "left": [
-        "dashboard",
-        "workspaces",
-        "windowtitle"
-      ],
-      "middle": [
-        "media"
-      ],
-      "right": [
-        "volume",
-        "clock",
-        "notifications"
-      ]
+      "left": ["dashboard", "workspaces", "windowtitle"],
+      "middle": ["media"],
+      "right": ["volume", "clock", "notifications"]
     }
   },
   "bar.autoHide": "never",
@@ -136,10 +107,7 @@
   "menus.dashboard.stats.enabled": false,
   "theme.bar.buttons.modules.microphone.enableBorder": false,
   "theme.bar.buttons.modules.ram.enableBorder": false,
-  "bar.customModules.worldclock.tz": [
-    "Bolivia/La_Paz",
-    "Europe/Paris"
-  ],
+  "bar.customModules.worldclock.tz": ["Bolivia/La_Paz", "Europe/Paris"],
   "theme.bar.buttons.windowtitle.enableBorder": false,
   "bar.media.truncation_size": 25,
   "bar.media.format": "{title: -}{artist}",
