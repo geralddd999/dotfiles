@@ -33,7 +33,7 @@
     # https://www.kernel.org/doc/html/latest/admin-guide/pm/amd-pstate.html
     # https://wiki.archlinux.org/title/CPU_frequency_scaling#amd_pstate
     # On recent AMD CPUs this can be more energy efficient.
-    "amd_pstate=guided"
+    "amd_pstate=active"
 
     # Load amdgpu at stage 1
     "amdgpu"
