@@ -48,6 +48,7 @@
     libsoup_3
     upower
     dart-sass
+    shared-mime-info
     #networking and others
     bluez
     bluez-tools
@@ -56,6 +57,7 @@
     kdePackages.kate
     kdePackages.ark
     kdePackages.okular
+    kdePackages.gwenview
     # Gnome related stuff +File manager:
     nautilus
     cheese
@@ -161,13 +163,20 @@
     style = builtins.readFile ./waybar/style.css;
 
   };
-programs.dankMaterialShell.enable = true;
+
+  #Shell config
+  programs.dankMaterialShell.enable = true;
 
     #xdg.configFile."quickshell" = {
         #source = config.lib.file.mkOutOfStoreSymlink
             #"${config.home.homeDirectory}/.dotfiles/quickshell";
         # recursive = true;
   #};
+
+  # Mime type setup:
+  xdg.mimeApps = {
+    enable = true;
+  };
   #Git config
   programs.git = {
     enable = true;
@@ -253,6 +262,9 @@ programs.dankMaterialShell.enable = true;
     #Gtk related stuff
     ".config/gtk-4.0/colors.css" = { source = ./gtk/gtk-4.0/colors.css; };
     ".config/gtk-3.0/colors.css" = { source = ./gtk/gtk-3.0/colors.css; };
+
+    #kde-qt related stuff
+    ".config/qt6ct/qt6ct.conf" = {source = ./kde-qt/qt6ct.conf; };
 
     #kitty config
     ".config/kitty/kitty.conf" = {source = ./kitty/kitty.conf; };
