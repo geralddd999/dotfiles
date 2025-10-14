@@ -123,7 +123,8 @@ xdg.portal = {
     #extraPortals = [pkgs.xdg-desktop-portal-wlr];
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
 };
-
+#Enabling flatpak
+services.flatpak.enable = true;
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";

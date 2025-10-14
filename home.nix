@@ -25,7 +25,9 @@
   home.packages = with pkgs ;[
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
-    #quickshell
+    omnissa-horizon-client
+    material-symbols
+    qtcreator
     matugen
     glib
     gnome-text-editor
@@ -49,6 +51,11 @@
     #networking and others
     bluez
     bluez-tools
+    #Qt migration stuff
+    kdePackages.dolphin
+    kdePackages.kate
+    kdePackages.ark
+    kdePackages.okular
     # Gnome related stuff +File manager:
     nautilus
     cheese
@@ -77,7 +84,9 @@
     qt5.qtsvg
     qt5.qttranslations
     kdePackages.qt5compat
+    libsForQt5.qt5ct
     #qt6 
+    kdePackages.qt6ct
     (hiPrio qt6Packages.qtdeclarative)
     (hiPrio qt6Packages.qttranslations)
     qt6Packages.qtbase
@@ -136,7 +145,7 @@
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
- # fonts.fontconfig.enable = true;
+ fonts.fontconfig.enable = true;
  # stylix.fonts = {
  #   serif = {
  #     package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
@@ -152,12 +161,13 @@
     style = builtins.readFile ./waybar/style.css;
 
   };
+programs.dankMaterialShell.enable = true;
 
-  xdg.configFile."quickshell" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/.dotfiles/quickshell";
-    recursive = true;
-  };
+    #xdg.configFile."quickshell" = {
+        #source = config.lib.file.mkOutOfStoreSymlink
+            #"${config.home.homeDirectory}/.dotfiles/quickshell";
+        # recursive = true;
+  #};
   #Git config
   programs.git = {
     enable = true;

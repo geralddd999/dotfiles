@@ -40,11 +40,14 @@ PanelWindow {
         id: bar
         anchors.fill: parent
         color : "#2D2D2D"
-        border.color: "#c6bbbb"
-        radius: 20
+        //border.color: "#c6bbbb"
+        radius: 12
 
         RowLayout{
             anchors.fill: parent
+            
+            Layout.preferredWidth: parent.width
+            Layout.preferredHeight: parent.height
             anchors.margins: 5
             spacing: 0
 
@@ -57,39 +60,12 @@ PanelWindow {
                 anchors.centerIn: parent
             }
             Tray{
-                anchors.centerIn: parent
-            }
-
-            Repeater{
-                model: Hyprland.workspaces
                 //anchors.centerIn: parent
+            }
+            Workspaces{
 
-                Rectangle{
-                    implicitHeight: 12
-                    width: 12
-                    radius: 96
-
-                    color: modelData.active ? "#4a93ff" : "#33333333"
-
-                    border.color: "#555555"
-                    border.width: 2 
-
-                    MouseArea{
-                        anchors.fill: parent
-                        onClicked: Hyprland.dispatch("workspaces" + modelData.id) 
-                    }
-
-                    Text{
-                        text: modelData.id
-                        anchors.centerIn: parent
-                        color: modelData.active ? "#ffffff" : "#cccccc"
-                        font.pixelSize: 14
-                        font.family: "Inter, sans-serif"
-                    }
-                }
             }
 
-            Text {}
         }
     }  
 }
