@@ -20,8 +20,6 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-
-
   # Load amdgpu at stage 1
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelParams = [
@@ -86,6 +84,7 @@ hardware.graphics = {
       # AMD ROCm OpenCL runtime
       rocmPackages.clr
       rocmPackages.clr.icd
+      amdvlk
 
     ];
 };
@@ -122,6 +121,7 @@ xdg.portal = {
     #extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
     #extraPortals = [pkgs.xdg-desktop-portal-wlr];
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    extraPortals = [ pkgs.xdg-desktop-portal-kde ];
 };
 #Enabling flatpak
 services.flatpak.enable = true;
@@ -179,7 +179,7 @@ programs.fish.enable = true;
    wl-clipboard wlroots
    xdg-desktop-portal-gtk
    xdg-desktop-portal-hyprland hyprland-protocols
-   xdg-user-dirs
+   xdg-user-dirs xdg-utils
    xwayland hyprsunset
    hyprlock libnotify hyprpicker
    hypridle hyprcursor

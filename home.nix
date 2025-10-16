@@ -26,6 +26,13 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     omnissa-horizon-client
+    openconnect
+    anytype
+    man-pages
+    hyprshot
+    hyprpicker
+    grim
+
     material-symbols
     qtcreator
     matugen
@@ -58,6 +65,7 @@
     kdePackages.ark
     kdePackages.okular
     kdePackages.gwenview
+    kdePackages.systemsettings
     # Gnome related stuff +File manager:
     nautilus
     cheese
@@ -104,6 +112,7 @@
     qt6Packages.qttranslations
     qt6Packages.qtvirtualkeyboard
     qt6Packages.qt5compat
+    kdePackages.qtstyleplugin-kvantum
     #Other
     hyprshell
     grimblast
@@ -121,6 +130,13 @@
     vscode
     microsoft-edge
     zed-editor
+    # C++ dev packages
+    clang-tools
+    clang-manpages
+    cmake
+    codespell
+    cppcheck
+    gdb
     #Word-processing / school related
     obsidian
     onlyoffice-bin
@@ -129,6 +145,8 @@
     #fonts
     meslo-lgs-nf
     liberation_ttf
+    #lsps
+
     #apple-fonts.packages.${pkgs.system}.sf-pro
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -174,9 +192,9 @@
   #};
 
   # Mime type setup:
-  xdg.mimeApps = {
-    enable = true;
-  };
+  #xdg.mimeApps = {
+  #  enable = true;
+  #};
   #Git config
   programs.git = {
     enable = true;
@@ -191,7 +209,12 @@
         };
     };
 
-  programs.fish = { enable = true; };
+  programs.fish = {
+	 enable = true; 
+	interactiveShellInit = ''
+      set fish_greeting # Disable greeting
+    '';
+};
   #Appearence config [GNOME]
   gtk = {
     enable = true;
@@ -298,6 +321,7 @@
   home.sessionVariables = {
     QML_IMPORT_PATH = "${pkgs.quickshell}/lib/qt-6/qml";
     QML2_IMPORT_PATH = "${pkgs.quickshell}/lib/qt-6/qml";
+    QT_QPA_PLATFORMTHEME = "qt6ct";
     # EDITOR = "emacs";
   };
   home.sessionPath = [
