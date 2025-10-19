@@ -56,11 +56,26 @@
     upower
     dart-sass
     shared-mime-info
+    desktop-file-utils
     #networking and others
     bluez
     bluez-tools
-    #Qt migration stuff
+    #Qt apps
     kdePackages.dolphin
+    #dolphin related
+    kdePackages.kio
+    kdePackages.kdf
+    kdePackages.kio-fuse
+    kdePackages.kio-extras
+    kdePackages.kio-admin
+    kdePackages.qtwayland
+    kdePackages.plasma-integration
+    kdePackages.kdegraphics-thumbnailers
+    kdePackages.breeze-icons
+    kdePackages.qtsvg
+    kdePackages.kservice
+    kdePackages.kde-cli-tools
+    
     kdePackages.kate
     kdePackages.ark
     kdePackages.okular
@@ -191,10 +206,38 @@
         # recursive = true;
   #};
 
-  # Mime type setup:
-  #xdg.mimeApps = {
-  #  enable = true;
-  #};
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications ={
+      #i hate you dolphin
+      #text + code 
+      "text/plain" = "org.kde.kate.desktop";
+      "text/x-python" = [ "code.desktop" ];
+      "text/x-c++src" = [ "code.desktop" ];
+      "text/x-csrc" = [ "code.desktop" ];
+      "text/x-shellscript" = [ "org.kde.kate.desktop" ];
+      #folders
+      "inode/directory" = "org.kde.dolphin.desktop";
+      #images
+      "image/png" = [ "org.kde.gwenview.desktop" ];
+      "image/jpeg" = [ "org.kde.gwenview.desktop" ];
+      "image/gif" = [ "org.kde.gwenview.desktop" ];
+      "image/webp" = [ "org.kde.gwenview.desktop" ];
+      
+      "application/pdf" = "org.kde.okular.desktop";
+      
+      "application/zip" = "org.kde.ark.desktop";
+      "application/x-compressed-tar" = [ "org.kde.ark.desktop" ];
+      "application/x-bzip-compressed-tar" = [ "org.kde.ark.desktop" ];
+      "application/x-xz-compressed-tar" = [ "org.kde.ark.desktop" ];
+      "application/gzip" = [ "org.kde.ark.desktop" ];
+    };
+    associations.added = {
+      "text/plain" = ["code.desktop"];
+      "application/pdf" = ["zen-beta.desktop"];
+    };
+  };
+  
   #Git config
   programs.git = {
     enable = true;
@@ -214,7 +257,14 @@
 	interactiveShellInit = ''
       set fish_greeting # Disable greeting
     '';
-};
+  };
+  #appearence config [kde]
+  qt = {
+    enable = true;
+    platformTheme.name = "qt6ct";
+    style.name = "kvantum";
+  };
+
   #Appearence config [GNOME]
   gtk = {
     enable = true;
@@ -253,6 +303,7 @@
   };
 
   #apply dark theme to gnome apps
+  #dconf.enable = true;
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
@@ -322,6 +373,11 @@
     QML_IMPORT_PATH = "${pkgs.quickshell}/lib/qt-6/qml";
     QML2_IMPORT_PATH = "${pkgs.quickshell}/lib/qt-6/qml";
     QT_QPA_PLATFORMTHEME = "qt6ct";
+    QT_QPA_PLATFORMTHEME_QT6 = "qt6ct";
+    QT_STYLE_OVERRIDE = "kvantum";
+    XDG_MENU_PREFIX = "kde-";
+    XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
+    XDG_DATA_DIRS = "${config.home.homeDirectory}/.local/share:/run/current-system/sw/share:/etc/profiles/per-user/${config.home.username}/share";
     # EDITOR = "emacs";
   };
   home.sessionPath = [

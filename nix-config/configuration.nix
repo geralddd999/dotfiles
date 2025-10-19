@@ -118,11 +118,42 @@ services.dbus.enable = true;
 xdg.portal = {
     enable = true;
     wlr.enable = true;
-    #extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-    #extraPortals = [pkgs.xdg-desktop-portal-wlr];
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
-    extraPortals = [ pkgs.xdg-desktop-portal-kde ];
+    #extraPortals = [  ];
+    #extraPortals = [];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.kdePackages.xdg-desktop-portal-kde];
 };
+#xdg.mime.enable = true;
+xdg.mime = {
+    enable = true;
+    defaultApplications ={
+      #i hate you dolphin
+      #text + code 
+      "text/plain" = "org.kde.kate.desktop";
+      "text/x-python" = [ "code.desktop" ];
+      "text/x-c++src" = [ "code.desktop" ];
+      "text/x-csrc" = [ "code.desktop" ];
+      "text/x-shellscript" = [ "org.kde.kate.desktop" ];
+      #folders
+      "inode/directory" = "org.kde.dolphin.desktop";
+      #images
+      "image/png" = [ "org.kde.gwenview.desktop" ];
+      "image/jpeg" = [ "org.kde.gwenview.desktop" ];
+      "image/gif" = [ "org.kde.gwenview.desktop" ];
+      "image/webp" = [ "org.kde.gwenview.desktop" ];
+      
+      "application/pdf" = "org.kde.okular.desktop";
+      
+      "application/zip" = "org.kde.ark.desktop";
+      "application/x-compressed-tar" = [ "org.kde.ark.desktop" ];
+      "application/x-bzip-compressed-tar" = [ "org.kde.ark.desktop" ];
+      "application/x-xz-compressed-tar" = [ "org.kde.ark.desktop" ];
+      "application/gzip" = [ "org.kde.ark.desktop" ];
+    };
+    addedAssociations = {
+      "text/plain" = ["code.desktop"];
+      "application/pdf" = ["zen-beta.desktop"];
+    };
+  };
 #Enabling flatpak
 services.flatpak.enable = true;
   # Configure keymap in X11
@@ -177,7 +208,7 @@ programs.fish.enable = true;
    dunst meson
    wayland-protocols wayland-utils
    wl-clipboard wlroots
-   xdg-desktop-portal-gtk
+   kdePackages.xdg-desktop-portal-kde xdg-desktop-portal-gtk
    xdg-desktop-portal-hyprland hyprland-protocols
    xdg-user-dirs xdg-utils
    xwayland hyprsunset

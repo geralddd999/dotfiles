@@ -26,3 +26,7 @@ output_path = '~/Other/nixos-dotfiles/wofi/colors.css'
 [templates.qt6ct]
 input_path = '~/Other/nixos-dotfiles/matugen/templates/matugen-kcolorscheme.conf'
 output_path = '~/Other/nixos-dotfiles/kde-qt/colors/matugen-colors.conf'
+
+[templates.m3colors]
+input_path = '~/Other/nixos-dotfiles/matugen/templates/colors.json'
+output_path = '~/Other/nixos-dotfiles/kde-qt/colors/diff-colors.json'
