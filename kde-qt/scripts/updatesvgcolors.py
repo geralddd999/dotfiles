@@ -77,10 +77,10 @@ def update_svg_colors(svg_path, old_to_new_colors, output_path):
     print(f"SVG colors have been updated and saved to {output_path}!")
 
 def main():
-    xdg_config_home = os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/Other/nixos-dotfiles"))
+    xdg_config_home = os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/Others/nixos-dotfiles"))
 
     # Point this thang to the output file from matugen
-    matugen_colors_file = os.path.expanduser("~/Other/nixos-dotfiles/kde-qt/colors/colors.json")
+    matugen_colors_file = os.path.expanduser("~/Others/nixos-dotfiles/kde-qt/colors/diff-colors.json")
 
     # Path to your source SVG file
     svg_path = os.path.join(xdg_config_home, "Kvantum", "Colloid", "ColloidDark.svg")

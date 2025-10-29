@@ -2,31 +2,31 @@
 # ...
 
 [templates.hyprland]
-input_path = '~/Other/nixos-dotfiles/matugen/templates/hyprland-colors.conf'
-output_path = '~/Other/nixos-dotfiles/hyprland/colors.conf'
+input_path = '~/Others/nixos-dotfiles/matugen/templates/hyprland-colors.conf'
+output_path = '~/Others/nixos-dotfiles/hyprland/colors.conf'
 post_hook = 'hyprctl reload'
 
 [templates.kitty]
-input_path = '~/Other/nixos-dotfiles/matugen/templates/kitty-colors.conf'
-output_path = '~/Other/nixos-dotfiles/colors.conf'
+input_path = '~/Others/nixos-dotfiles/matugen/templates/kitty-colors.conf'
+output_path = '~/Others/nixos-dotfiles/colors.conf'
 post_hook = 'pkill -SIGUSR1 kitty'
 
 [templates.gtk3]
-input_path = '~/Other/nixos-dotfiles/matugen/templates/gtk-colors.css'
-output_path = '~/Other/nixos-dotfiles/gtk/gtk-3.0/colors.css'
+input_path = '~/Others/nixos-dotfiles/matugen/templates/gtk-colors.css'
+output_path = '~/Others/nixos-dotfiles/gtk/gtk-3.0/colors.css'
 
 [templates.gtk4]
-input_path = '~/Other/nixos-dotfiles/matugen/templates/gtk-colors.css'
-output_path = '~/Other/nixos-dotfiles/gtk/gtk-4.0/colors.css'
+input_path = '~/Others/nixos-dotfiles/matugen/templates/gtk-colors.css'
+output_path = '~/Others/nixos-dotfiles/gtk/gtk-4.0/colors.css'
 
 [templates.wofi]
-input_path = '~/Other/nixos-dotfiles/matugen/templates/colors.css'
-output_path = '~/Other/nixos-dotfiles/wofi/colors.css'
+input_path = '~/Others/nixos-dotfiles/matugen/templates/colors.css'
+output_path = '~/Others/nixos-dotfiles/wofi/colors.css'
 
 [templates.qt6ct]
-input_path = '~/Other/nixos-dotfiles/matugen/templates/matugen-kcolorscheme.conf'
-output_path = '~/Other/nixos-dotfiles/kde-qt/colors/matugen-colors.conf'
+input_path = '~/Others/nixos-dotfiles/matugen/templates/matugen-kcolorscheme.conf'
+output_path = '~/Others/nixos-dotfiles/kde-qt/colors/matugen-colors.conf'
 
 [templates.m3colors]
-input_path = '~/Other/nixos-dotfiles/matugen/templates/colors.json'
-output_path = '~/Other/nixos-dotfiles/kde-qt/colors/diff-colors.json'
+input_path = '~/Others/nixos-dotfiles/matugen/templates/colors.json'
+output_path = '~/Others/nixos-dotfiles/kde-qt/colors/diff-colors.json'

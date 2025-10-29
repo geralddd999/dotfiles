@@ -91,11 +91,11 @@ def update_config_colors(config_file, colors, mappings):
         file.write(config_content)
 
 def main():
-    xdg_config_home = os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/Other/nixos-dotfiles"))
+    xdg_config_home = os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/Others/nixos-dotfiles"))
 
     # Point this to the output file from matugen
     #matugen_colors_file = os.path.expanduser("~/.local/share/color-schemes/DankMatugen.colors")
-    matugen_colors_file = os.path.expanduser("~/Other/nixos-dotfiles/kde-qt/colors/colors.json")
+    matugen_colors_file = os.path.expanduser("~/Others/nixos-dotfiles/kde-qt/colors/diff-colors.json")
 
     # Path to the Kvantum config file
     config_file = os.path.join(xdg_config_home, "Kvantum", "MaterialAdw", "MaterialAdw.kvconfig")
