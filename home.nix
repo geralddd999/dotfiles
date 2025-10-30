@@ -145,6 +145,7 @@
     vscode
     microsoft-edge
     zed-editor
+    nil
     # C++ dev packages
     clang-tools
     clang-manpages
@@ -152,6 +153,13 @@
     codespell
     cppcheck
     gdb
+    #qt development
+    qt6.full
+    qt6.qtdeclarative
+    qt6.qtbase
+    SDL2
+    sdl2-compat
+    ffmpeg
     #Word-processing / school related
     obsidian
     onlyoffice-bin
@@ -206,38 +214,44 @@
         # recursive = true;
   #};
 
+  xdg.enable = true;
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications ={
       #i hate you dolphin
       #text + code 
       "text/plain" = "org.kde.kate.desktop";
-      "text/x-python" = [ "code.desktop" ];
-      "text/x-c++src" = [ "code.desktop" ];
-      "text/x-csrc" = [ "code.desktop" ];
-      "text/x-shellscript" = [ "org.kde.kate.desktop" ];
+      "text/x-python" = "code.desktop";
+      "text/x-c++src" = "code.desktop";
+      "text/x-csrc" = "code.desktop";
+      "text/x-shellscript" = "org.kde.kate.desktop";
       #folders
       "inode/directory" = "org.kde.dolphin.desktop";
       #images
-      "image/png" = [ "org.kde.gwenview.desktop" ];
-      "image/jpeg" = [ "org.kde.gwenview.desktop" ];
-      "image/gif" = [ "org.kde.gwenview.desktop" ];
-      "image/webp" = [ "org.kde.gwenview.desktop" ];
+      "image/*" = "org.kde.gwenview.desktop";
       
       "application/pdf" = "org.kde.okular.desktop";
       
       "application/zip" = "org.kde.ark.desktop";
-      "application/x-compressed-tar" = [ "org.kde.ark.desktop" ];
-      "application/x-bzip-compressed-tar" = [ "org.kde.ark.desktop" ];
-      "application/x-xz-compressed-tar" = [ "org.kde.ark.desktop" ];
-      "application/gzip" = [ "org.kde.ark.desktop" ];
+      "application/x-compressed-tar" = "org.kde.ark.desktop";
+      "application/x-bzip-compressed-tar" = "org.kde.ark.desktop";
+      "application/x-xz-compressed-tar" = "org.kde.ark.desktop";
+      "application/gzip" = "org.kde.ark.desktop";
     };
     associations.added = {
       "text/plain" = ["code.desktop"];
       "application/pdf" = ["zen-beta.desktop"];
     };
   };
-  
+  #making kde filepicker the default
+  xdg.configFile."xdg-desktop-portal/hyprland-portals.conf" = {
+    text = ''
+      [preferred]
+      default = hyprland;gtk
+      org.freedesktop.impl.portal.FileChooser = kde
+    '';
+  };
   #Git config
   programs.git = {
     enable = true;
@@ -372,17 +386,10 @@
   home.sessionVariables = {
     QML_IMPORT_PATH = "${pkgs.quickshell}/lib/qt-6/qml";
     QML2_IMPORT_PATH = "${pkgs.quickshell}/lib/qt-6/qml";
-    QT_QPA_PLATFORMTHEME = "qt6ct";
-    QT_QPA_PLATFORMTHEME_QT6 = "qt6ct";
-    QT_STYLE_OVERRIDE = "kvantum";
     XDG_MENU_PREFIX = "kde-";
-    XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
-    XDG_DATA_DIRS = "${config.home.homeDirectory}/.local/share:/run/current-system/sw/share:/etc/profiles/per-user/${config.home.username}/share";
+
     # EDITOR = "emacs";
   };
-  home.sessionPath = [
-    "/run/current-system/sw/bin/hyprland"
-  ];
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
