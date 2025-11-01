@@ -88,7 +88,7 @@ hardware.graphics = {
 
     ];
 };
-
+services.xserver.videoDrivers = ["amdgpu"];
 environment.variables = {
     # VAAPI and VDPAU config for accelerated video.
     # See https://wiki.archlinux.org/index.php/Hardware_video_acceleration
@@ -150,11 +150,11 @@ services.flatpak.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
  users.users.geronimo = {
    isNormalUser = true;
-   extraGroups = [ "wheel" "video" "input" "networkmanager" "wayland"]; # Enable ‘sudo’ for the user.
+   extraGroups = [ "wheel" "video" "input" "networkmanager" "wayland" "docker"]; # Enable ‘sudo’ for the user.
   packages = with pkgs; [
      tree
    ];
-   shell = pkgs.fish;
+   shell = pkgs.zsh;
  };
 
 
@@ -163,6 +163,13 @@ powerManagement.enable = true;
 
 programs.firefox.enable = true;
 programs.fish.enable = true;
+programs.zsh.enable  = true;
+
+programs.kdeconnect.enable = true;
+networking.firewall = rec{
+    allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+    allowedUDPPortRanges = allowedTCPPortRanges;
+  };
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
  environment.systemPackages = with pkgs; [
@@ -192,9 +199,25 @@ programs.fish.enable = true;
    pavucontrol 
    pipewire
 
+   #qt development
+   qt6.full
+   qt6.qtdeclarative
+   qt6.qtbase
+   SDL2
+   sdl2-compat
+   ffmpeg
+
+   #gaming
+   wine-staging
+
    #Fonts
    #(nerd-fonts.override {fonts = ["FiraCode"]; })
  ];
+
+programs.steam = {
+    enable = true;
+    gamescopeSession.enable = true;
+  };
 
 #GNOME related stuff
 services.gnome.gnome-keyring.enable = true; 
@@ -206,7 +229,14 @@ services.gvfs.enable = true;
 	capSysAdmin = true;
 	openFirewall = true;
  };
-
+#Docker setup
+virtualisation.docker = {
+  enable = true;
+  storageDriver = "btrfs";
+  daemon.settings = {
+    "data-root" = "/home/docker-root";
+  };
+};
 #Tailscale setup
 #services.tailscale.enable = true;
  # Some programs need SUID wrappers, can be configured further or are

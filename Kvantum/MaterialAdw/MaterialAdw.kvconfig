@@ -76,23 +76,23 @@ menu_blur_radius=0
 tooltip_blur_radius=0
 
 [GeneralColors]
-window.color=#1A1111
-base.color=#1A1111
-alt.base.color=#1A1111
+window.color=#131313
+base.color=#131313
+alt.base.color=#131313
 button.color=#271D1D
 light.color=#231919
 mid.light.color=#271D1D
 dark.color=#3D3232
 mid.color=#322827
-highlight.color=#FFB3B1
-inactive.highlight.color=#FFB3B1
+highlight.color=#ffb3b1
+inactive.highlight.color=#ffb3b1
 text.color=#F0DEDD
 window.text.color=#F0DEDD
 button.text.color=#F0DEDD
 disabled.text.color=#F0DEDD
 tooltip.text.color=#F0DEDD
 highlight.text.color=#F0DEDD
-link.color=#E4C18D
+link.color=#e3c28d
 link.visited.color=#FFDEAC
 progress.indicator.text.color=#F0DEDD
 

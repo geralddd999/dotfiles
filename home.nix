@@ -8,6 +8,7 @@
   imports = [
     #./dunst.nix
     ./cursor.nix
+    ./matlab.nix
   ];
   home.username = "geronimo";
   home.homeDirectory = "/home/geronimo";
@@ -153,13 +154,7 @@
     codespell
     cppcheck
     gdb
-    #qt development
-    qt6.full
-    qt6.qtdeclarative
-    qt6.qtbase
-    SDL2
-    sdl2-compat
-    ffmpeg
+    
     #Word-processing / school related
     obsidian
     onlyoffice-bin
@@ -169,6 +164,10 @@
     meslo-lgs-nf
     liberation_ttf
     #lsps
+    #vnc,rdp and others client
+    tigervnc
+    #gaming
+    lutris
 
     #apple-fonts.packages.${pkgs.system}.sf-pro
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -332,7 +331,11 @@
   programs.neovim = {
     enable = true;
   };
-
+  #kde-connect | file sharing between devices setup
+  services.kdeconnect = {
+    enable = true;
+  };
+  
   home.file = {
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
@@ -362,6 +365,8 @@
     ".config/matugen/config.toml" ={source = ./matugen/config.toml; };
     #hyprlock
     ".config/hypr/hyprlock.conf" = {source = ./hyprland/hyprlock.conf; };
+    #hypridle
+    ".config/hypr/hypridle.conf" = {source = ./hyprland/hypridle.conf;};
   };
   xdg.configFile."nvim" = {
     source = ./nvim;
