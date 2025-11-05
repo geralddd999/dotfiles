@@ -1,9 +1,14 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 #removed apple-fonts
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-
 
   imports = [
     #./dunst.nix
@@ -23,7 +28,7 @@
   home.stateVersion = "25.05"; # Please read the comment before changing.
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs ;[
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     omnissa-horizon-client
@@ -76,7 +81,7 @@
     kdePackages.qtsvg
     kdePackages.kservice
     kdePackages.kde-cli-tools
-    
+
     kdePackages.kate
     kdePackages.ark
     kdePackages.okular
@@ -111,7 +116,7 @@
     qt5.qttranslations
     kdePackages.qt5compat
     libsForQt5.qt5ct
-    #qt6 
+    #qt6
     kdePackages.qt6ct
     (hiPrio qt6Packages.qtdeclarative)
     (hiPrio qt6Packages.qttranslations)
@@ -151,15 +156,18 @@
     clang-tools
     clang-manpages
     cmake
+    valgrind
     codespell
     cppcheck
     gdb
-    
+
     #Word-processing / school related
     obsidian
     onlyoffice-bin
     libreoffice-qt
     hunspell
+    #Architecture des circuits
+    digital
     #fonts
     meslo-lgs-nf
     liberation_ttf
@@ -184,16 +192,15 @@
     # '')
   ];
 
-
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
- fonts.fontconfig.enable = true;
- # stylix.fonts = {
- #   serif = {
- #     package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
- #     name = "SFProDisplay Nerd Font";
- #   };
- # };
+  fonts.fontconfig.enable = true;
+  # stylix.fonts = {
+  #   serif = {
+  #     package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
+  #     name = "SFProDisplay Nerd Font";
+  #   };
+  # };
   programs.waybar = {
     enable = true;
     #style = ./waybar/style.css;
@@ -203,23 +210,33 @@
     style = builtins.readFile ./waybar/style.css;
 
   };
+  programs.obs-studio = {
+    enable = true;
 
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-pipewire-audio-capture
+      obs-vaapi
+      obs-gstreamer
+      obs-vkcapture
+    ];
+  };
   #Shell config
   programs.dankMaterialShell.enable = true;
 
-    #xdg.configFile."quickshell" = {
-        #source = config.lib.file.mkOutOfStoreSymlink
-            #"${config.home.homeDirectory}/.dotfiles/quickshell";
-        # recursive = true;
+  #xdg.configFile."quickshell" = {
+  #source = config.lib.file.mkOutOfStoreSymlink
+  #"${config.home.homeDirectory}/.dotfiles/quickshell";
+  # recursive = true;
   #};
 
   xdg.enable = true;
 
   xdg.mimeApps = {
     enable = true;
-    defaultApplications ={
+    defaultApplications = {
       #i hate you dolphin
-      #text + code 
+      #text + code
       "text/plain" = "org.kde.kate.desktop";
       "text/x-python" = "code.desktop";
       "text/x-c++src" = "code.desktop";
@@ -229,9 +246,9 @@
       "inode/directory" = "org.kde.dolphin.desktop";
       #images
       "image/*" = "org.kde.gwenview.desktop";
-      
+
       "application/pdf" = "org.kde.okular.desktop";
-      
+
       "application/zip" = "org.kde.ark.desktop";
       "application/x-compressed-tar" = "org.kde.ark.desktop";
       "application/x-bzip-compressed-tar" = "org.kde.ark.desktop";
@@ -239,8 +256,8 @@
       "application/gzip" = "org.kde.ark.desktop";
     };
     associations.added = {
-      "text/plain" = ["code.desktop"];
-      "application/pdf" = ["zen-beta.desktop"];
+      "text/plain" = [ "code.desktop" ];
+      "application/pdf" = [ "zen-beta.desktop" ];
     };
   };
   #making kde filepicker the default
@@ -261,13 +278,13 @@
   programs.gh = {
     enable = true;
     gitCredentialHelper = {
-            enable = true; 
-        };
+      enable = true;
     };
+  };
 
   programs.fish = {
-	 enable = true; 
-	interactiveShellInit = ''
+    enable = true;
+    interactiveShellInit = ''
       set fish_greeting # Disable greeting
     '';
   };
@@ -335,7 +352,7 @@
   services.kdeconnect = {
     enable = true;
   };
-  
+
   home.file = {
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
@@ -347,26 +364,48 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".config/wofi/config" = { source = ./wofi/config; };
-    ".config/wofi/style.css" = { source = ./wofi/style.css; };
-    ".config/wofi/colors.css" = { source = ./wofi/colors.css; };
+    ".config/wofi/config" = {
+      source = ./wofi/config;
+    };
+    ".config/wofi/style.css" = {
+      source = ./wofi/style.css;
+    };
+    ".config/wofi/colors.css" = {
+      source = ./wofi/colors.css;
+    };
     #Gtk related stuff
-    ".config/gtk-4.0/colors.css" = { source = ./gtk/gtk-4.0/colors.css; };
-    ".config/gtk-3.0/colors.css" = { source = ./gtk/gtk-3.0/colors.css; };
+    ".config/gtk-4.0/colors.css" = {
+      source = ./gtk/gtk-4.0/colors.css;
+    };
+    ".config/gtk-3.0/colors.css" = {
+      source = ./gtk/gtk-3.0/colors.css;
+    };
 
     #kde-qt related stuff
-    ".config/qt6ct/qt6ct.conf" = {source = ./kde-qt/qt6ct.conf; };
+    ".config/qt6ct/qt6ct.conf" = {
+      source = ./kde-qt/qt6ct.conf;
+    };
 
     #kitty config
-    ".config/kitty/kitty.conf" = {source = ./kitty/kitty.conf; };
-    ".config/kitty/colors.conf" = {source = ./kitty/colors.conf; };
+    ".config/kitty/kitty.conf" = {
+      source = ./kitty/kitty.conf;
+    };
+    ".config/kitty/colors.conf" = {
+      source = ./kitty/colors.conf;
+    };
 
     #matugen
-    ".config/matugen/config.toml" ={source = ./matugen/config.toml; };
+    ".config/matugen/config.toml" = {
+      source = ./matugen/config.toml;
+    };
     #hyprlock
-    ".config/hypr/hyprlock.conf" = {source = ./hyprland/hyprlock.conf; };
+    ".config/hypr/hyprlock.conf" = {
+      source = ./hyprland/hyprlock.conf;
+    };
     #hypridle
-    ".config/hypr/hypridle.conf" = {source = ./hyprland/hypridle.conf;};
+    ".config/hypr/hypridle.conf" = {
+      source = ./hyprland/hypridle.conf;
+    };
   };
   xdg.configFile."nvim" = {
     source = ./nvim;
@@ -389,8 +428,8 @@
   #  /etc/profiles/per-user/geronimo/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    QML_IMPORT_PATH = "${pkgs.quickshell}/lib/qt-6/qml";
-    QML2_IMPORT_PATH = "${pkgs.quickshell}/lib/qt-6/qml";
+    #QML_IMPORT_PATH = "${pkgs.quickshell}/lib/qt-6/qml";
+    #QML2_IMPORT_PATH = "${pkgs.quickshell}/lib/qt-6/qml";
     XDG_MENU_PREFIX = "kde-";
 
     # EDITOR = "emacs";

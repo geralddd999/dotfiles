@@ -2,14 +2,19 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./auto-cpufreq.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./auto-cpufreq.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -18,7 +23,7 @@
   networking.hostName = "monarch"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Load amdgpu at stage 1
   boot.initrd.kernelModules = [ "amdgpu" ];
@@ -47,10 +52,9 @@
     # Do not set iommu=off, because this will cause the SD-Card reader
     # driver to kernel panic.
     "iommu=soft"
-  ];  
+  ];
 
-
-# Set your time zone.
+  # Set your time zone.
   time.timeZone = "Europe/Paris";
 
   # Configure network proxy if necessary
@@ -68,13 +72,16 @@
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
-#Enabling Flakes in Nix
-nix.settings.experimental-features = ["nix-command" "flakes"];
+  #Enabling Flakes in Nix
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
-#Enabling non-free packages 
-nixpkgs.config.allowUnfree = true;
-#Configuring Hardware-Acceleration
-hardware.graphics = {
+  #Enabling non-free packages
+  nixpkgs.config.allowUnfree = true;
+  #Configuring Hardware-Acceleration
+  hardware.graphics = {
     enable = true;
     enable32Bit = true;
     extraPackages = with pkgs; [
@@ -87,44 +94,48 @@ hardware.graphics = {
       amdvlk
 
     ];
-};
-services.xserver.videoDrivers = ["amdgpu"];
-environment.variables = {
+  };
+  services.xserver.videoDrivers = [ "amdgpu" ];
+  environment.variables = {
     # VAAPI and VDPAU config for accelerated video.
     # See https://wiki.archlinux.org/index.php/Hardware_video_acceleration
     "VDPAU_DRIVER" = "radeonsi";
     "LIBVA_DRIVER_NAME" = "radeonsi";
-};
+  };
 
-#HIP libraries workaround fix;
+  #HIP libraries workaround fix;
 
-systemd.tmpfiles.rules = [
+  systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 
-# Hyprland config
+  # Hyprland config
   programs.hyprland = {
-   enable = true;
-   xwayland.enable = true;
-   withUWSM = true ;
-};
+    enable = true;
+    xwayland.enable = true;
+    withUWSM = true;
+  };
   environment.sessionVariables = {
-   NIXOS_OZONE_WL = "1";
-};
+    NIXOS_OZONE_WL = "1";
+  };
 
-#Configuring the xdg-portal for hyprland
-services.dbus.enable = true;
+  #Configuring the xdg-portal for hyprland
+  services.dbus.enable = true;
 
-xdg.portal = {
+  xdg.portal = {
     enable = true;
     wlr.enable = true;
     #extraPortals = [  ];
     #extraPortals = [];
-    extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-hyprland pkgs.kdePackages.xdg-desktop-portal-kde];
-};
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.kdePackages.xdg-desktop-portal-kde
+    ];
+  };
 
-#Enabling flatpak
-services.flatpak.enable = true;
+  #Enabling flatpak
+  services.flatpak.enable = true;
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -135,111 +146,134 @@ services.flatpak.enable = true;
   # Enable sound.
   # services.pulseaudio.enable = true;
   # OR
- services.pipewire = {
-   enable = true;
-   pulse.enable = true;
-   alsa.enable = true;
-   alsa.support32Bit = true;
-   wireplumber.enable = true;
- };
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    wireplumber.enable = true;
+  };
 
   hardware.bluetooth.enable = true;
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
- users.users.geronimo = {
-   isNormalUser = true;
-   extraGroups = [ "wheel" "video" "input" "networkmanager" "wayland" "docker"]; # Enable ‘sudo’ for the user.
-  packages = with pkgs; [
-     tree
-   ];
-   shell = pkgs.zsh;
- };
+  users.users.geronimo = {
+    isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "video"
+      "input"
+      "networkmanager"
+      "wayland"
+      "docker"
+    ]; # Enable ‘sudo’ for the user.
+    #warning i made docker 'root' | change to root-less docker but im lazy
+    packages = with pkgs; [
+      tree
+    ];
+    shell = pkgs.zsh;
+  };
 
+  #Enable power management
+  powerManagement.enable = true;
 
-#Enable power management
-powerManagement.enable = true;
+  programs.firefox.enable = true;
+  programs.fish.enable = true;
+  programs.zsh.enable = true;
 
-programs.firefox.enable = true;
-programs.fish.enable = true;
-programs.zsh.enable  = true;
-
-programs.kdeconnect.enable = true;
-networking.firewall = rec{
-    allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+  programs.kdeconnect.enable = true;
+  networking.firewall = rec {
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
     allowedUDPPortRanges = allowedTCPPortRanges;
   };
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
- environment.systemPackages = with pkgs; [
-   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-   wget gcc git
-   neovim radeontop
-   # DE dependencies
-   kitty
-   foot
-   hyprland uwsm
-   swww acpid
-   dunst meson
-   wayland-protocols wayland-utils
-   wl-clipboard wlroots
-   kdePackages.xdg-desktop-portal-kde xdg-desktop-portal-gtk
-   xdg-desktop-portal-hyprland hyprland-protocols
-   xdg-user-dirs xdg-utils
-   xwayland hyprsunset
-   hyprlock libnotify hyprpicker
-   hypridle hyprcursor
-   hyprpolkitagent 
+  environment.systemPackages = with pkgs; [
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    gcc
+    git
+    neovim
+    radeontop
+    # DE dependencies
+    kitty
+    foot
+    hyprland
+    uwsm
+    swww
+    acpid
+    #dunst
+    meson
+    wayland-protocols
+    wayland-utils
+    wl-clipboard
+    wlroots
+    kdePackages.xdg-desktop-portal-kde
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-hyprland
+    hyprland-protocols
+    xdg-user-dirs
+    xdg-utils
+    xwayland
+    hyprsunset
+    hyprlock
+    libnotify
+    hyprpicker
+    hypridle
+    hyprcursor
+    hyprpolkitagent
 
-   # app-launchers
-   rofi-wayland
+    # app-launchers
+    rofi-wayland
 
-   # audio-controls
-   pavucontrol 
-   pipewire
+    # audio-controls
+    pavucontrol
+    pipewire
 
-   #qt development
-   qt6.full
-   qt6.qtdeclarative
-   qt6.qtbase
-   SDL2
-   sdl2-compat
-   ffmpeg
+    #gaming
+    wine-staging
 
-   #gaming
-   wine-staging
+    #Fonts
+    #(nerd-fonts.override {fonts = ["FiraCode"]; })
+  ];
 
-   #Fonts
-   #(nerd-fonts.override {fonts = ["FiraCode"]; })
- ];
-
-programs.steam = {
+  programs.steam = {
     enable = true;
     gamescopeSession.enable = true;
   };
 
-#GNOME related stuff
-services.gnome.gnome-keyring.enable = true; 
-services.gvfs.enable = true; 
-#Sunshine setup
- services.sunshine = {
-	enable = true;
-	autoStart = true;
-	capSysAdmin = true;
-	openFirewall = true;
- };
-#Docker setup
-virtualisation.docker = {
-  enable = true;
-  storageDriver = "btrfs";
-  daemon.settings = {
-    "data-root" = "/home/docker-root";
+  #GNOME related stuff
+  services.gnome.gnome-keyring.enable = true;
+  services.gvfs.enable = true;
+  #Sunshine setup
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
   };
-};
-#Tailscale setup
-#services.tailscale.enable = true;
- # Some programs need SUID wrappers, can be configured further or are
+  #Docker setup
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "btrfs";
+    daemon.settings = {
+      "data-root" = "/home/docker-root";
+    };
+  };
+  #Enable direnvs
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+  programs.direnv.enableFishIntegration = true;
+  #Tailscale setup
+  #services.tailscale.enable = true;
+  # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
@@ -283,4 +317,3 @@ virtualisation.docker = {
   system.stateVersion = "25.05"; # Did you read the comment?
 
 }
-

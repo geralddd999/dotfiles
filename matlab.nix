@@ -8,8 +8,8 @@ let
   containerName = "matlab-vnc";
   matlabImage = "mathworks/matlab:${matlabVersion}";
 
-  matlabDataPath = "/home/${username}/Documents/matlab-data";
-  matlabConfigPath = "/home/${username}/Documents/matlab-config";
+  matlabDataPath = "/home/${username}/Documents/matlab/matlab-data";
+  matlabConfigPath = "/home/${username}/Documents/matlab/matlab-config";
   
 in {
 
@@ -20,10 +20,19 @@ in {
       #!/usr/bin/env bash
       CONTAINER_NAME="${containerName}"
       
-      if [ ! "$(docker ps -a -q -f name=^/${CONTAINER_NAME}$)" ]; then
-        echo "--- No matlab container found, creating a new one: ${CONTAINER_NAME} ---"
+      if [ ! "$(docker ps -a -q -f name=^/''${CONTAINER_NAME}$)" ]; then
+        echo "--- No matlab container found, creating a new one: ''${CONTAINER_NAME} ---"
+        
+        #setting up folders if not done
+        mkdir -p ${matlabDataPath}
+        mkdir -p ${matlabConfigPath}
+        
+        #Allowing the container to be able to modify it
+        chmod 777 ${matlabDataPath}
+        chmod 777 ${matlabConfigPath}
+
         docker run -d -t \
-            --name ${CONTAINER_NAME} \
+            --name ''${CONTAINER_NAME} \
             -p 5901:5901 \
             -p 6080:6080 \
             -e PASSWORD=${matlabPassword} \
@@ -32,9 +41,9 @@ in {
             --shm-size=512M \
             ${matlabImage} -vnc > /dev/null
       else
-        if [ ! "$(docker ps -q -f name=^/${CONTAINER_NAME}$)" ]; then
+        if [ ! "$(docker ps -q -f name=^/''${CONTAINER_NAME}$)" ]; then
           echo "--- existing container found, running it ---"
-          docker start ${CONTAINER_NAME} > /dev/null
+          docker start ''${CONTAINER_NAME} > /dev/null
         else
           echo "--- MATLAB container is already running ---"
         fi
@@ -42,13 +51,12 @@ in {
           
       
       
-      echo "--- Launching VNC Viewer. Connect to localhost:5901 ---"
-      echo "--- CLOSE THE VNC WINDOW TO STOP THE CONTAINER ---"
       vncviewer localhost:5901
       
-      echo "--- VNC client closed. Stopping MATLAB container ---"
-      docker stop ${CONTAINER_NAME} > /dev/null
-      sleep 2
+      
+      docker stop ''${CONTAINER_NAME} > /dev/null
+
+      notify-send "MATLAB" "Container stopped." -t 2000
     '';
   };
 
