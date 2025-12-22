@@ -1,24 +1,24 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 18,
-  "spacing": 4,
+  "height": 10,
+  "spacing": 2,
 
   "modules-left": [
-    "clock"
+    "niri/workspaces"
   ],
   "modules-center": [
-    "hyprland/workspaces"
+    "clock"
   ],
   "modules-right": [
     "tray",
-    "cpu",
     "wireplumber",
     "backlight",
+    "cpu",
     "memory"
   ],
 
-  "hyprland/workspaces": {
+  "niri/workspaces": {
     "format": "{icon}",
     "format-icons": {
         "1": "1",
@@ -42,7 +42,7 @@
     }
   },
 
-  "hyprland/window": {
+  "niri/window": {
     "format": "<span>{}</span>",
     "max-length": 40
   },
@@ -55,11 +55,11 @@
   "wireplumber": {
     "format": "{icon} {volume}%",
     "format-bluetooth": "<span>{icon} {volume}%</span>",
-    "format-muted": "<span> Muted</span>",
+    "format-muted": "<span> Muted</span>",
     "format-icons": {
       "headphones": "",
       "headset": "",
-      "default": ["", "", ""]
+      "default": ["", "", ""]
     },
     "tooltip": false,
     "on-click": "pavucontrol"
@@ -84,6 +84,6 @@
 
   "tray": {
     "icon-size": 14,
-    "spacing": 5
+    "spacing": 2
   }
 }

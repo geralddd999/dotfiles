@@ -1,7 +1,8 @@
 {
   config,
   pkgs,
-  lib,
+  zen,
+  apple-fonts,
   inputs,
   ...
 }:
@@ -13,7 +14,9 @@
   imports = [
     #./dunst.nix
     ./cursor.nix
-    ./matlab.nix
+    #./matlab.nix
+    inputs.dms.homeModules.dankMaterialShell.default
+    #inputs.dms.homeModules.dankMaterialShell.niri
   ];
   home.username = "geronimo";
   home.homeDirectory = "/home/geronimo";
@@ -40,10 +43,10 @@
     grim
 
     material-symbols
-    qtcreator
     matugen
     glib
     gnome-text-editor
+
     powertop
     fastfetch
     libgtop
@@ -63,12 +66,16 @@
     dart-sass
     shared-mime-info
     desktop-file-utils
+
     #networking and others
     bluez
     bluez-tools
     #Qt apps
     kdePackages.dolphin
+    # Qt/QML dev
+    qtcreator
     #dolphin related
+    kdePackages.kirigami
     kdePackages.kio
     kdePackages.kdf
     kdePackages.kio-fuse
@@ -134,10 +141,10 @@
     qt6Packages.qtvirtualkeyboard
     qt6Packages.qt5compat
     kdePackages.qtstyleplugin-kvantum
+
     #Other
-    hyprshell
     grimblast
-    #Hyprland plugins + other dependencies
+    # Niri deps+ other dependencies
     swww
     grim
     wlogout
@@ -145,12 +152,13 @@
     playerctl
     hyprpanel
     nwg-look
-    hyprpaper
     brightnessctl
+
     #dev/nonfree
     vscode
     microsoft-edge
     zed-editor
+    zen.packages.${pkgs.system}.default
     nil
     # C++ dev packages
     clang-tools
@@ -163,11 +171,13 @@
 
     #Word-processing / school related
     obsidian
-    onlyoffice-bin
+    onlyoffice-desktopeditors
     libreoffice-qt
     hunspell
+
     #Architecture des circuits
     digital
+
     #fonts
     meslo-lgs-nf
     liberation_ttf
@@ -177,7 +187,8 @@
     #gaming
     lutris
 
-    #apple-fonts.packages.${pkgs.system}.sf-pro
+    apple-fonts.packages.${pkgs.system}.sf-pro
+
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -204,10 +215,10 @@
   programs.waybar = {
     enable = true;
     #style = ./waybar/style.css;
-    settings = {
-      main = builtins.fromJSON (builtins.readFile ./waybar/config);
-    };
-    style = builtins.readFile ./waybar/style.css;
+    #settings = {
+    #  main = builtins.fromJSON (builtins.readFile ./waybar/config);
+    #};
+    #style = builtins.readFile ./waybar/style.css;
 
   };
   programs.obs-studio = {
@@ -221,8 +232,31 @@
       obs-vkcapture
     ];
   };
+
+  # Shell config for Niri
   #Shell config
-  programs.dankMaterialShell.enable = true;
+
+  programs.dankMaterialShell = {
+    enable = true;
+    quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
+
+    systemd = {
+    enable = true;             # Systemd service for auto-start
+    restartIfChanged = true;   # Auto-restart dms.service when dms-shell changes
+    };
+
+    #niri = {
+    #enableKeybinds = true;   # Sets static preset keybinds
+    #enableSpawn = true;      # Auto-start DMS with niri and cliphist, if enabled
+    #};
+  # Core features
+  enableSystemMonitoring = true;     # System monitoring widgets (dgop)
+  enableClipboard = true;            # Clipboard history manager
+  enableVPN = true;                  # VPN management widget
+  enableDynamicTheming = true;       # Wallpaper-based theming (matugen)
+  enableAudioWavelength = true;      # Audio visualizer (cava)
+  enableCalendarEvents = true;       # Calendar integration (khal)
+  };
 
   #xdg.configFile."quickshell" = {
   #source = config.lib.file.mkOutOfStoreSymlink
@@ -230,36 +264,36 @@
   # recursive = true;
   #};
 
-  xdg.enable = true;
+  #xdg.enable = true;
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      #i hate you dolphin
-      #text + code
-      "text/plain" = "org.kde.kate.desktop";
-      "text/x-python" = "code.desktop";
-      "text/x-c++src" = "code.desktop";
-      "text/x-csrc" = "code.desktop";
-      "text/x-shellscript" = "org.kde.kate.desktop";
-      #folders
-      "inode/directory" = "org.kde.dolphin.desktop";
-      #images
-      "image/*" = "org.kde.gwenview.desktop";
-
-      "application/pdf" = "org.kde.okular.desktop";
-
-      "application/zip" = "org.kde.ark.desktop";
-      "application/x-compressed-tar" = "org.kde.ark.desktop";
-      "application/x-bzip-compressed-tar" = "org.kde.ark.desktop";
-      "application/x-xz-compressed-tar" = "org.kde.ark.desktop";
-      "application/gzip" = "org.kde.ark.desktop";
-    };
-    associations.added = {
-      "text/plain" = [ "code.desktop" ];
-      "application/pdf" = [ "zen-beta.desktop" ];
-    };
-  };
+  #xdg.mimeApps = {
+  #  enable = true;
+  #  defaultApplications = {
+  #    #i hate you dolphin
+  #    #text + code
+  #    "text/plain" = "org.kde.kate.desktop";
+  #    "text/x-python" = "code.desktop";
+  #    "text/x-c++src" = "code.desktop";
+  #    "text/x-csrc" = "code.desktop";
+  #    "text/x-shellscript" = "org.kde.kate.desktop";
+  #    #folders
+  #    "inode/directory" = "org.kde.dolphin.desktop";
+  #    #images
+  #    "image/*" = "org.kde.gwenview.desktop";
+  #
+  #    "application/pdf" = "org.kde.okular.desktop";
+  #
+  #   "application/zip" = "org.kde.ark.desktop";
+  #   "application/x-compressed-tar" = "org.kde.ark.desktop";
+  #    "application/x-bzip-compressed-tar" = "org.kde.ark.desktop";
+  #    "application/x-xz-compressed-tar" = "org.kde.ark.desktop";
+  #    "application/gzip" = "org.kde.ark.desktop";
+  #  };
+  #  associations.added = {
+  #    "text/plain" = [ "code.desktop" ];
+  #    "application/pdf" = [ "zen-beta.desktop" ];
+  #  };
+  #};
   #making kde filepicker the default
   xdg.configFile."xdg-desktop-portal/hyprland-portals.conf" = {
     text = ''
@@ -341,10 +375,6 @@
     };
   };
 
-  programs.wofi = {
-    enable = true;
-  };
-
   programs.neovim = {
     enable = true;
   };
@@ -398,15 +428,15 @@
     ".config/matugen/config.toml" = {
       source = ./matugen/config.toml;
     };
-    #hyprlock
-    ".config/hypr/hyprlock.conf" = {
-      source = ./hyprland/hyprlock.conf;
-    };
-    #hypridle
-    ".config/hypr/hypridle.conf" = {
-      source = ./hyprland/hypridle.conf;
-    };
+
+
   };
+
+  xdg.configFile = {
+    "waybar/config".source = config.lib.file.mkOutOfStoreSymlink "/home/geronimo/Other/dotfiles/waybar/config";
+    "waybar/style.css".source = config.lib.file.mkOutOfStoreSymlink "/home/geronimo/Other/dotfiles/waybar/style.css";
+  };
+
   xdg.configFile."nvim" = {
     source = ./nvim;
   };
@@ -432,7 +462,7 @@
     #QML2_IMPORT_PATH = "${pkgs.quickshell}/lib/qt-6/qml";
     XDG_MENU_PREFIX = "kde-";
 
-    # EDITOR = "emacs";
+    EDITOR = "vim";
   };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

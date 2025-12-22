@@ -6,12 +6,15 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
 {
   imports = [
     # Include the results of the hardware scan.
+
+    #./hardware-configuration.nix
     ./hardware-configuration.nix
     ./auto-cpufreq.nix
   ];
@@ -86,12 +89,11 @@
     enable32Bit = true;
     extraPackages = with pkgs; [
       # VA-API and VDPAU
-      vaapiVdpau
+      libva-vdpau-driver
 
       # AMD ROCm OpenCL runtime
       rocmPackages.clr
       rocmPackages.clr.icd
-      amdvlk
 
     ];
   };
@@ -108,16 +110,28 @@
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
+  # KDE Plasma configuration
+  services.xserver.enable = true;
 
-  # Hyprland config
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    withUWSM = true;
+  services.displayManager = {
+    sddm.enable = true;
+    sddm.wayland.enable = true;
   };
+  services.desktopManager.plasma6.enable = true;
+  # disable the powerprofiles daemon because it hates auto-cpufreq
+  services.power-profiles-daemon.enable = false;
+  # Niri config
+  programs.niri = {
+    enable = true;
+  };
+
+  #Allowing both DE's to use kwallet and PAM with SDDM
+  security.pam.services.sddm.enableKwallet = true;
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
+    KW_WALLET_FORCE_OPEN = "1";
   };
+  security.polkit.enable = true;
 
   #Configuring the xdg-portal for hyprland
   services.dbus.enable = true;
@@ -125,13 +139,10 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    #extraPortals = [  ];
-    #extraPortals = [];
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-hyprland
-      pkgs.kdePackages.xdg-desktop-portal-kde
-    ];
+    #extraPortals = [
+    #  pkgs.xdg-desktop-portal-gtk
+    #  pkgs.kdePackages.xdg-desktop-portal-kde
+    #];
   };
 
   #Enabling flatpak
@@ -205,11 +216,10 @@
     # DE dependencies
     kitty
     foot
-    hyprland
-    uwsm
     swww
     acpid
     #dunst
+    xwayland-satellite
     meson
     wayland-protocols
     wayland-utils
@@ -217,21 +227,16 @@
     wlroots
     kdePackages.xdg-desktop-portal-kde
     xdg-desktop-portal-gtk
-    xdg-desktop-portal-hyprland
-    hyprland-protocols
+    kdePackages.polkit-kde-agent-1
+    kdePackages.kwallet
+    kdePackages.kwallet-pam
     xdg-user-dirs
     xdg-utils
     xwayland
-    hyprsunset
-    hyprlock
     libnotify
-    hyprpicker
-    hypridle
-    hyprcursor
-    hyprpolkitagent
 
     # app-launchers
-    rofi-wayland
+    fuzzel
 
     # audio-controls
     pavucontrol
@@ -250,15 +255,9 @@
   };
 
   #GNOME related stuff
-  services.gnome.gnome-keyring.enable = true;
-  services.gvfs.enable = true;
-  #Sunshine setup
-  services.sunshine = {
-    enable = true;
-    autoStart = true;
-    capSysAdmin = true;
-    openFirewall = true;
-  };
+  #services.gnome.gnome-keyring.enable = true;
+  #services.gvfs.enable = true;
+
   #Docker setup
   virtualisation.docker = {
     enable = true;
@@ -267,6 +266,7 @@
       "data-root" = "/home/docker-root";
     };
   };
+
   #Enable direnvs
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
@@ -314,6 +314,6 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 
 }
