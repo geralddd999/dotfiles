@@ -28,9 +28,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    winapps = {
+      url = "github:winapps-org/winapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nvf = {
+      url = "github:notashelf/nvf";
+    };
+
+
   };
 
-  outputs = { self, nixpkgs, home-manager, zen, stylix, apple-fonts, dms, quickshell, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, zen, stylix, apple-fonts, dms, quickshell, winapps, nvf, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -42,12 +52,30 @@
       #system (NixOS) configuration
       nixosConfigurations.monarch = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs; }; # Pass inputs to configuration.nix
+        specialArgs = { inherit inputs system; }; # Pass inputs to configuration.nix
         modules = [
           ./configuration.nix
+          (
+            {
+              pkgs,
+              system ? pkgs.system,
+              ...
+            }:
+            {
+              environment.systemPackages = [
+                winapps.packages."${system}".winapps
+                winapps.packages."${system}".winapps-launcher # optional
+              ];
+            }
+          )
         ];
       };
-
+      # NVF config 
+      packages."x86_64-linux".default = 
+      (nvf.lib.neovimConfiguration {
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        modules = [ ./nvim/nvf-configuration.nix];
+       }).neovim;
       # home-manager config
       homeConfigurations."geronimo" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -59,4 +87,5 @@
         ];
       };
     };
+
 }

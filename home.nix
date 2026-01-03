@@ -41,6 +41,9 @@
     hyprshot
     hyprpicker
     grim
+    lazygit
+    ghostty
+    ascii-image-converter
 
     material-symbols
     matugen
@@ -144,6 +147,10 @@
 
     #Other
     grimblast
+    freerdp
+    dialog
+    iproute2
+    netcat-openbsd
     # Niri deps+ other dependencies
     swww
     grim
@@ -161,6 +168,8 @@
     zen.packages.${pkgs.system}.default
     nil
     # C++ dev packages
+    clang
+    nixd
     clang-tools
     clang-manpages
     cmake
@@ -186,6 +195,8 @@
     tigervnc
     #gaming
     lutris
+    prismlauncher
+    jdk
 
     apple-fonts.packages.${pkgs.system}.sf-pro
 
@@ -429,16 +440,17 @@
       source = ./matugen/config.toml;
     };
 
+    #winapps
+    ".config/winapps/winapps.conf" = {
+      source = ./winapps/winapps.conf;
+    };
+
 
   };
 
   xdg.configFile = {
     "waybar/config".source = config.lib.file.mkOutOfStoreSymlink "/home/geronimo/Other/dotfiles/waybar/config";
     "waybar/style.css".source = config.lib.file.mkOutOfStoreSymlink "/home/geronimo/Other/dotfiles/waybar/style.css";
-  };
-
-  xdg.configFile."nvim" = {
-    source = ./nvim;
   };
 
   # Home Manager can also manage your environment variables through

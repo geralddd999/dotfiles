@@ -271,6 +271,13 @@
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
   programs.direnv.enableFishIntegration = true;
+  
+  # Enable ld for code editors
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs;[
+    stdenv.cc.cc.lib
+    zlib
+  ];
   #Tailscale setup
   #services.tailscale.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
