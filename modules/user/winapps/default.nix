@@ -20,6 +20,7 @@ in
       inputs.winapps.packages.${pkgs.system}.winapps
       inputs.winapps.packages.${pkgs.system}.winapps-launcher
       dosfstools
+      freerdp
     ];
 
     #winapps config file

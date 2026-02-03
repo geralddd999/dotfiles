@@ -10,7 +10,11 @@
 {
 
   #Modules in the ./modules/system
-  modules.system.auto-cpufreq.enable = true;
+  modules.system = {
+    auto-cpufreq.enable = true;
+    shells.enable = true;
+  };
+
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -21,7 +25,10 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
+  # Enable the proprietary drivers
+  hardware.enableRedistributableFirmware = true;
   # Load amdgpu at stage 1
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelParams = [
     # Force use of the thinkpad_acpi driver for backlight control.
@@ -48,7 +55,9 @@
     # Do not set iommu=off, because this will cause the SD-Card reader
     # driver to kernel panic.
     "iommu=soft"
+    "usbcore.autosuspend=-1"
   ];
+
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -181,11 +190,9 @@
   };
 
   #Enable power management
-  powerManagement.enable = true;
+  #powerManagement.enable = true;
 
   programs.firefox.enable = true;
-  programs.fish.enable = true;
-  programs.zsh.enable = true;
 
   programs.kdeconnect.enable = true;
   networking.firewall = rec {
@@ -271,15 +278,22 @@
     stdenv.cc.cc.lib
     zlib
   ];
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    #openFirewall = true;
+  };
+
   #Tailscale setup
-  #services.tailscale.enable = true;
+  services.tailscale.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.gnupg.agent = {
+     enable = true;
+     enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 

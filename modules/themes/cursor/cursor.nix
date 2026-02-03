@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ pkgs,
+  config,
+  ... }:
 
-let 
+let
     appleCursors = pkgs.stdenv.mkDerivation rec {
         pname = "appleCursors";
         version = "1.0";
@@ -14,6 +16,7 @@ let
             runHook postInstall
         '';
     };
+    cfg = config.userSettings.themes.cursor;
 
 in
 {

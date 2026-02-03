@@ -17,7 +17,8 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      gitu
+      #gitu
+      prettier
     ];
     stylix.targets.zed.enable = true;
     programs.zed-editor.enable = true;
@@ -94,13 +95,14 @@ in
       prettier = {
         allowed = true;
       };
+
       vim_mode = true;
-      base_keymap = "vim";
+      base_keymap = "VSCode";
       icon_theme = "Zed (Default)";
-      buffer_font_family = "FiraCode Nerd Font";
+      buffer_font_family = "JetBrains Nerd Font Mono";
       buffer_font_size = 24.0;
-      ui_font_family = "Fira Sans";
-      ui_font_size = 16.0;
+      ui_font_family = "SF Pro";
+      ui_font_size = 18.0;
     };
     programs.zed-editor.userKeymaps = [
       {

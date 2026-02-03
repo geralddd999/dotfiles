@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 #removed apple-fonts
@@ -127,7 +128,6 @@
     wl-clipboard
     wtype
     pamixer
-    mako
     #syntax highlighting
     kdePackages.syntax-highlighting
 
@@ -164,14 +164,14 @@
     freerdp
     dialog
     iproute2
-    netcat-openbsd
+    remmina
     # Niri deps+ other dependencies
     swww
     grim
     wlogout
     wofi
     playerctl
-    hyprpanel
+    #hyprpanel
     nwg-look
     brightnessctl
 
@@ -202,14 +202,14 @@
     meslo-lgs-nf
     liberation_ttf
     #lsps
-    #vnc,rdp and others client
-    tigervnc
     #gaming
     lutris
     prismlauncher
-    jdk
 
     inputs.apple-fonts.packages.${pkgs.system}.sf-pro
+    nerd-fonts.jetbrains-mono
+
+    jetbrains.idea
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -264,7 +264,7 @@
     quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
 
     systemd = {
-      enable = true; # Systemd service for auto-start
+      enable = false; # Systemd service for auto-start
       restartIfChanged = true; # Auto-restart dms.service when dms-shell changes
     };
 
@@ -274,13 +274,16 @@
     #};
     # Core features
     enableSystemMonitoring = true; # System monitoring widgets (dgop)
-    enableClipboard = true; # Clipboard history manager
+    #enableClipboard = true; # Clipboard history manager
     enableVPN = true; # VPN management widget
     enableDynamicTheming = true; # Wallpaper-based theming (matugen)
     enableAudioWavelength = true; # Audio visualizer (cava)
     enableCalendarEvents = true; # Calendar integration (khal)
   };
 
+  systemd.user.services.dms = {
+      Install.WantedBy = lib.mkForce [ "niri.service" ];
+    };
   #xdg.configFile."quickshell" = {
   #source = config.lib.file.mkOutOfStoreSymlink
   #"${config.home.homeDirectory}/.dotfiles/quickshell";
@@ -321,15 +324,17 @@
   xdg.configFile."xdg-desktop-portal/hyprland-portals.conf" = {
     text = ''
       [preferred]
-      default = hyprland;gtk
+      default = niri;gtk
       org.freedesktop.impl.portal.FileChooser = kde
     '';
   };
   #Git config
   programs.git = {
     enable = true;
-    userName = "Gerald Chambi";
-    userEmail = "chambigerald@hotmail.com";
+    settings.user = {
+      name = "Gerald Chambi";
+      email = "chambigerald@hotmail.com";
+    };
   };
 
   programs.gh = {
@@ -346,11 +351,11 @@
     '';
   };
   #appearence config [kde]
-  qt = {
-    enable = true;
-    platformTheme.name = "qt6ct";
-    style.name = "kvantum";
-  };
+  #qt = {
+  #  enable = true;
+  #  platformTheme.name = "qt6ct";
+  #  style.name = "kvantum";
+  #};
 
   #Appearence config [GNOME]
   gtk = {

@@ -21,6 +21,7 @@
 
   boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/c0e4640c-b34a-497c-96aa-bdb8ddfe503a";
 
+
   fileSystems."/home" =
     { device = "/dev/mapper/cryptroot";
       fsType = "btrfs";
