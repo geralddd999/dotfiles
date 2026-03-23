@@ -119,6 +119,7 @@
     easyeffects
     gnome-photos
     gnome-characters
+    sassc
     # git related
     gh
     git
@@ -177,7 +178,7 @@
 
     #dev/nonfree
     vscode
-    microsoft-edge
+    #microsoft-edge
     zed-editor
     inputs.zen.packages.${pkgs.system}.default
     nil

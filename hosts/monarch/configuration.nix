@@ -13,6 +13,7 @@
   modules.system = {
     auto-cpufreq.enable = true;
     shells.enable = true;
+    de.enable = true;
   };
 
 
@@ -27,9 +28,10 @@
 
   # Enable the proprietary drivers
   hardware.enableRedistributableFirmware = true;
+  hardware.enableAllFirmware = true;
   # Load amdgpu at stage 1
   boot.kernelPackages = pkgs.linuxPackages_zen;
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.initrd.kernelModules = [ "amdgpu" "hp-wmi" ];
   boot.kernelParams = [
     # Force use of the thinkpad_acpi driver for backlight control.
     # This allows the backlight save/load systemd service to work.
@@ -112,40 +114,16 @@
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
-  # KDE Plasma configuration
-  services.xserver.enable = true;
-
-  services.displayManager = {
-    sddm.enable = true;
-    sddm.wayland.enable = true;
-  };
-  services.desktopManager.plasma6.enable = true;
   # disable the powerprofiles daemon because it hates auto-cpufreq
   services.power-profiles-daemon.enable = false;
-  # Niri config
-  programs.niri = {
-    enable = true;
-  };
 
-  #Allowing both DE's to use kwallet and PAM with SDDM
-  security.pam.services.sddm.enableKwallet = true;
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    KW_WALLET_FORCE_OPEN = "1";
   };
   security.polkit.enable = true;
 
   #Configuring the xdg-portal for hyprland
   services.dbus.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    #extraPortals = [
-    #  pkgs.xdg-desktop-portal-gtk
-    #  pkgs.kdePackages.xdg-desktop-portal-kde
-    #];
-  };
 
   #Enabling flatpak
   services.flatpak.enable = true;
@@ -194,7 +172,6 @@
 
   programs.firefox.enable = true;
 
-  programs.kdeconnect.enable = true;
   networking.firewall = rec {
     allowedTCPPortRanges = [
       {
@@ -216,7 +193,6 @@
     # DE dependencies
     kitty
     foot
-    swww
     acpid
     #dunst
     xwayland-satellite
@@ -225,15 +201,12 @@
     wayland-utils
     wl-clipboard
     wlroots
-    kdePackages.xdg-desktop-portal-kde
-    xdg-desktop-portal-gtk
-    kdePackages.polkit-kde-agent-1
-    kdePackages.kwallet
-    kdePackages.kwallet-pam
     xdg-user-dirs
     xdg-utils
     xwayland
     libnotify
+    libcamera
+    v4l-utils
 
     # app-launchers
     fuzzel
@@ -270,7 +243,6 @@
   #Enable direnvs
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-  programs.direnv.enableFishIntegration = true;
 
   # Enable ld for code editors
   programs.nix-ld.enable = true;

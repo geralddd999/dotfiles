@@ -19,6 +19,7 @@ in
       libreoffice-qt
       adwaita-icon-theme
       discord
+      #beeper
       hunspell
       hunspellDicts.en_US
 

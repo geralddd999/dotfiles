@@ -19,6 +19,10 @@ in
     home.packages = with pkgs; [
       digital
       graphviz
+
+
+      # S2 related stuff
+
     ];
     #userSettings.matlab.enable = true;
 
