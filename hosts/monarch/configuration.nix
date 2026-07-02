@@ -123,7 +123,6 @@
   security.polkit.enable = true;
 
   #Configuring the xdg-portal for hyprland
-  services.dbus.enable = true;
 
   #Enabling flatpak
   services.flatpak.enable = true;
@@ -159,6 +158,7 @@
       "networkmanager"
       "wayland"
       "docker"
+      "kvm"
     ]; # Enable ‘sudo’ for the user.
     #warning i made docker 'root' | change to root-less docker but im lazy
     packages = with pkgs; [
@@ -168,7 +168,7 @@
   };
 
   #Enable power management
-  #powerManagement.enable = true;
+  powerManagement.enable = true;
 
   programs.firefox.enable = true;
 

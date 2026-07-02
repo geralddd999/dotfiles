@@ -25,6 +25,9 @@ in
 
       obsidian
       anytype
+      zotero
+      gnome-calendar
+      gnome-control-center
     ];
   };
 }

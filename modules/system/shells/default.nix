@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable{
     programs.zsh.ohMyZsh = {
-      enable = true;
+      enable = false;
       plugins = ["git" "docker" ""];
       theme = "Soliah";
     };

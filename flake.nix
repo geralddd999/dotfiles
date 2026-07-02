@@ -18,10 +18,10 @@
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
     apple-fonts.inputs.nixpkgs.follows = "nixpkgs";
 
-    dms = {
-      url = "github:AvengeMedia/DankMaterialShell/stable";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #dms = {
+    #  url = "github:AvengeMedia/DankMaterialShell/stable";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     quickshell = {
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";
@@ -33,8 +33,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
+  nixConfig = {
+    extra-substituters = [ "https://noctalia.cachix.org" ];
+    extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
+  };
   outputs =
     {
       self,

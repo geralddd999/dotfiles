@@ -1,4 +1,4 @@
-{config, lib, pkgs,...}:
+{config, lib, pkgs, inputs, ...}:
 let
   cfg = config.modules.system.de;
 
@@ -68,11 +68,16 @@ in
     services.desktopManager.plasma6.enable = true;
     environment.plasma6.excludePackages = [ pkgs.kdePackages.elisa ];
 
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = [
       #kde-rounded-corners
-      kdePackages.krohnkite
-      plasma-panel-colorizer
+      #kdePackages.krohnkite
+      pkgs.plasma-panel-colorizer
+      pkgs.kdePackages.karousel
+      pkgs.mpvpaper
+      # Noctalia DE for Niri 
+      inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
+    
     # -----------------------
     # PORTAL CONFIG
     # -----------------------
@@ -91,6 +96,13 @@ in
         };
       };
     };
+
+
+    services.dbus.enable = true;
+    programs.dconf.enable = true;
+
+    services.gnome.gnome-online-accounts.enable = true;
+    services.gnome.evolution-data-server.enable = true;
 
 
     services.gnome.gnome-keyring.enable = true;

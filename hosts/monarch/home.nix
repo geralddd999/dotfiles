@@ -13,7 +13,6 @@
   imports = [
     #./dunst.nix
     #./matlab.nix
-    inputs.dms.homeModules.dankMaterialShell.default
     #inputs.dms.homeModules.dankMaterialShell.niri
   ];
   home.username = "geronimo";
@@ -44,6 +43,8 @@
     engineering.enable = true;
     # VM-s docker
     virtualization.winapps.enable = true;
+
+    comms.enable = true;
   };
 
   home.packages = with pkgs; [
@@ -167,7 +168,7 @@
     iproute2
     remmina
     # Niri deps+ other dependencies
-    swww
+    awww
     grim
     wlogout
     wofi
@@ -204,7 +205,7 @@
     liberation_ttf
     #lsps
     #gaming
-    lutris
+    #lutris
     prismlauncher
 
     inputs.apple-fonts.packages.${pkgs.system}.sf-pro
@@ -260,32 +261,7 @@
   # Shell config for Niri
   #Shell config
 
-  programs.dankMaterialShell = {
-    enable = true;
-    quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
-
-    systemd = {
-      enable = false; # Systemd service for auto-start
-      restartIfChanged = true; # Auto-restart dms.service when dms-shell changes
-    };
-
-    #niri = {
-    #enableKeybinds = true;   # Sets static preset keybinds
-    #enableSpawn = true;      # Auto-start DMS with niri and cliphist, if enabled
-    #};
-    # Core features
-    enableSystemMonitoring = true; # System monitoring widgets (dgop)
-    #enableClipboard = true; # Clipboard history manager
-    enableVPN = true; # VPN management widget
-    enableDynamicTheming = true; # Wallpaper-based theming (matugen)
-    enableAudioWavelength = true; # Audio visualizer (cava)
-    enableCalendarEvents = true; # Calendar integration (khal)
-  };
-
-  systemd.user.services.dms = {
-      Install.WantedBy = lib.mkForce [ "niri.service" ];
-    };
-  #xdg.configFile."quickshell" = {
+    #xdg.configFile."quickshell" = {
   #source = config.lib.file.mkOutOfStoreSymlink
   #"${config.home.homeDirectory}/.dotfiles/quickshell";
   # recursive = true;

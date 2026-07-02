@@ -19,12 +19,10 @@ in
     home.packages = with pkgs; [
       digital
       graphviz
-
-
+      zotero
       # S2 related stuff
 
     ];
     #userSettings.matlab.enable = true;
-
   };
 }
